@@ -179,14 +179,114 @@ class MyParserPrint {
         /* At this point 'doc' contains a DOM representation of an 'Items' XML
          * file. Use doc.getDocumentElement() to get the root Element. */
         System.out.println("Successfully parsed - " + xmlFile);
-        
+
+        doc.getDocumentElement().normalize();
+        Element root = doc.getDocumentElement();
+        System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+
+        org.w3c.dom.NodeList nList = doc.getElementsByTagName("Item");
+            
+        System.out.println("----------------------------");
+
+        for (int i = 0; i < nList.getLength(); i++) {
+
+            Node nNode = nList.item(i);
+                    
+            System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                    
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element eElement = (Element) nNode;
+
+                String str="";
+
+                str=eElement.getAttribute("ItemID");
+                System.out.println("Id: " + str);
+                str=eElement.getElementsByTagName("Name").item(0).getTextContent();
+                System.out.println("Name: " + str);
+                str=eElement.getElementsByTagName("Currently").item(0).getTextContent();
+                System.out.println("Currently: " + str);
+
+                org.w3c.dom.NodeList nodeL=eElement.getElementsByTagName("Buy_Price");
+                if (nodeL.getLength() !=0){
+                    str=nodeL.item(0).getTextContent();
+                    System.out.println("Buy_Price: " + str);
+                }
+
+                str=eElement.getElementsByTagName("First_Bid").item(0).getTextContent();
+                System.out.println("First_Bid: " + str);
+                str=eElement.getElementsByTagName("Number_of_Bids").item(0).getTextContent();
+                System.out.println("Number_of_Bids: " + str);
+                str=eElement.getElementsByTagName("Country").item(0).getTextContent();
+                System.out.println("Country: " + str);
+                str=eElement.getElementsByTagName("Started").item(0).getTextContent();
+                System.out.println("Started: " + str);
+                str=eElement.getElementsByTagName("Ends").item(0).getTextContent();
+                System.out.println("Ends: " + str);
+                Element locElement = (Element) eElement.getElementsByTagName("Location").item(0);
+                str=locElement.getTextContent();
+                System.out.println("Location: " + str);
+                str=locElement.getAttribute("Latitude");
+                System.out.println("Latitude: " + str);
+                str=locElement.getAttribute("Latitude");
+                System.out.println("Longitude: " + str);
+                Element sellerElement = (Element) eElement.getElementsByTagName("Seller").item(0);
+                str=sellerElement.getAttribute("Rating");
+                System.out.println("Seller Rating: " + str);
+                str=sellerElement.getAttribute("UserID");
+                System.out.println("Seller ID: " + str);
+
+                org.w3c.dom.NodeList catList = eElement.getElementsByTagName("Category");
+                for (int c = 0; c < catList.getLength(); c++) {
+                    Node catNode = catList.item(c);
+                    if (catNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element catElement = (Element) catNode;
+                        str=catElement.getTextContent();
+                        System.out.println("Category : " + str);
+                    }
+                }
+
+                Element bidsElement = (Element) eElement.getElementsByTagName("Bids").item(0);
+                org.w3c.dom.NodeList bidList = bidsElement.getElementsByTagName("Bid");
+                for (int c = 0; c < bidList.getLength(); c++) {
+                    Node bidNode = bidList.item(c);
+                    if (bidNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                        Element bidElement = (Element) bidNode;
+
+                        Element bidderElement = (Element) bidElement.getElementsByTagName("Bidder").item(0);
+                        str=bidderElement.getAttribute("UserID");
+                        System.out.println("Bidder ID: " + str);
+                        str=bidderElement.getAttribute("Rating");
+                        System.out.println("Bidder Rating: " + str);
+                        
+                        org.w3c.dom.NodeList bidderNodeL=bidderElement.getElementsByTagName("Location");
+                        if (bidderNodeL.getLength() !=0){
+                            str=bidderNodeL.item(0).getTextContent();
+                            System.out.println("Bidder Location: " + str);
+                        }
+                        bidderNodeL=bidderElement.getElementsByTagName("Country");
+                        if (bidderNodeL.getLength() !=0){
+                            str=bidderNodeL.item(0).getTextContent();
+                            System.out.println("Bidder Country: " + str);
+                        }
+                        
+                        str=bidElement.getElementsByTagName("Time").item(0).getTextContent();
+                        System.out.println("Bid Time: " + str);
+                        str=bidElement.getElementsByTagName("Amount").item(0).getTextContent();
+                        System.out.println("Bid Amount: " + str);
+
+
+                    }
+                }
+            }
+        }
         /* Fill in code here (you will probably need to write auxiliary
             methods). */
-        
-        
+     
         /**************************************************************/
         
-        recursiveDescent(doc, 0);
+       // recursiveDescent(doc, 0);
     }
     
     public static void recursiveDescent(Node n, int level) {
