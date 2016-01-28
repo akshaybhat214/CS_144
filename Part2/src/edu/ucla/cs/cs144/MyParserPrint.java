@@ -158,6 +158,23 @@ class MyParserPrint {
         }
     }
     
+    static String formatTime(String oldTime) {
+        String retString = oldTime;
+        try
+        {
+            SimpleDateFormat new_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat old_format = new SimpleDateFormat("MMM-dd-yy HH:mm:ss");
+
+            retString = new_format.format(old_format.parse(oldTime));
+
+        }
+        catch(ParseException pe)
+        { System.out.println("Error:Could not convert time from Old format to new format");}
+
+        return retString;
+    }
+
+
     /* Process one items-???.xml file.
      */
     static void processFile(File xmlFile) {
@@ -195,6 +212,8 @@ class MyParserPrint {
             PrintWriter itemWriter = new PrintWriter("item-data.csv", "UTF-8");
             PrintWriter categoryWriter = new PrintWriter("category-data.csv", "UTF-8");
             PrintWriter bidWriter = new PrintWriter("bid-data.csv", "UTF-8");
+            PrintWriter latlongWriter = new PrintWriter("latlong-data.csv", "UTF-8");
+            PrintWriter locationWriter = new PrintWriter("location-data.csv", "UTF-8");
 
             for (int i = 0; i < ElementArr.length ; i++) {
 
@@ -207,41 +226,41 @@ class MyParserPrint {
 
                     Element curElement = (Element) nNode;
 
-                    String str="";
-
-
                     String ItemID=curElement.getAttribute("ItemID");
                     System.out.println("Id: " + ItemID);
 
                     String nameStr=curElement.getElementsByTagName("Name").item(0).getTextContent();
                     System.out.println("Name: " + nameStr);
-                    String currentlyStr=curElement.getElementsByTagName("Currently").item(0).getTextContent();
+                    String currentlyStr=strip(curElement.getElementsByTagName("Currently").item(0).getTextContent());
                     System.out.println("Currently: " + currentlyStr);
 
-                    String buyPriceStr="";
+                    String buyPriceStr= null;
                     org.w3c.dom.NodeList nodeL=curElement.getElementsByTagName("Buy_Price");
                     if (nodeL.getLength() !=0){
-                        buyPriceStr=nodeL.item(0).getTextContent();
+                        buyPriceStr=strip(nodeL.item(0).getTextContent()); //STRIP
                         System.out.println("Buy_Price: " + buyPriceStr);
                     }
 
-                    String firstBidStr =curElement.getElementsByTagName("First_Bid").item(0).getTextContent();
+                    String firstBidStr =strip(curElement.getElementsByTagName("First_Bid").item(0).getTextContent());
                     System.out.println("First_Bid: " + firstBidStr);
-                    String nobStr=curElement.getElementsByTagName("Number_of_Bids").item(0).getTextContent();
+                    String nobStr= curElement.getElementsByTagName("Number_of_Bids").item(0).getTextContent();
                     System.out.println("Number_of_Bids: " + nobStr);
                     String countryStr=curElement.getElementsByTagName("Country").item(0).getTextContent();
                     System.out.println("Country: " + countryStr);
-                    String startedStr=curElement.getElementsByTagName("Started").item(0).getTextContent();
+                    String startedStr=formatTime(curElement.getElementsByTagName("Started").item(0).getTextContent());
                     System.out.println("Started: " + startedStr);
-                    String endStr=curElement.getElementsByTagName("Ends").item(0).getTextContent();
+                    String endStr=formatTime(curElement.getElementsByTagName("Ends").item(0).getTextContent());
                     System.out.println("Ends: " + endStr);
 
                     Element locElement = (Element) curElement.getElementsByTagName("Location").item(0);
+
                     String locStr=locElement.getTextContent();
                     System.out.println("Location: " + locStr);
-                    String latStr=locElement.getAttribute("Latitude");
+                    String latStr=null;
+                    latStr = locElement.getAttribute("Latitude");
                     System.out.println("Latitude: " + latStr);
-                    String longStr=locElement.getAttribute("Latitude");
+                    String longStr=null;
+                    longStr = locElement.getAttribute("Latitude");
                     System.out.println("Longitude: " + longStr);
 
                     Element sellerElement = (Element) curElement.getElementsByTagName("Seller").item(0);
@@ -249,6 +268,13 @@ class MyParserPrint {
                     System.out.println("Seller Rating: " + ratingStr);
                     String UserID=sellerElement.getAttribute("UserID");
                     System.out.println("Seller ID: " + UserID);
+
+                    userWriter.println("\"" + UserID+"\"" + ","+ ratingStr);   //USERS////////
+
+                    locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
+
+                    if (latStr!=null && longStr!=null && latStr!="" && longStr!="")
+                        latlongWriter.println("\"" + UserID+"\"" + ","+ latStr +","+ longStr);//LatitudeLongitude/////
 
                     String catStr = "";
                     org.w3c.dom.NodeList catList = curElement.getElementsByTagName("Category");
@@ -259,7 +285,7 @@ class MyParserPrint {
                             catStr=catElement.getTextContent();
                             System.out.println("Category : " + catStr);
 
-                            categoryWriter.println(ItemID + "," + catStr);
+                            categoryWriter.println(ItemID + "," +"\"" + catStr+"\"");   //CATEGORY////////
                         }
                     }
 
@@ -277,8 +303,8 @@ class MyParserPrint {
                             String bidderRatingStr=bidderElement.getAttribute("Rating");
                             System.out.println("Bidder Rating: " + bidderRatingStr);
                             
-                            String bidderLocationStr = "";
-                            String bidderCountryStr = "";
+                            String bidderLocationStr = null;
+                            String bidderCountryStr = null;
                             org.w3c.dom.NodeList bidderNodeL=bidderElement.getElementsByTagName("Location");
                             if (bidderNodeL.getLength() !=0){
                                 bidderLocationStr=bidderNodeL.item(0).getTextContent();
@@ -290,21 +316,37 @@ class MyParserPrint {
                                 System.out.println("Bidder Country: " + bidderCountryStr);
                             }
                             
-                            String timeStr=bidElement.getElementsByTagName("Time").item(0).getTextContent();
+                            String timeStr=formatTime(bidElement.getElementsByTagName("Time").item(0).getTextContent());
                             System.out.println("Bid Time: " + timeStr);
-                            String amountStr=bidElement.getElementsByTagName("Amount").item(0).getTextContent();
+                            String amountStr=strip(bidElement.getElementsByTagName("Amount").item(0).getTextContent());
                             System.out.println("Bid Amount: " + amountStr);
                             
-                            bidWriter.println(ItemID + "," + BidderID + "," +timeStr+ "," +amountStr); //To .csv file
+                            bidWriter.println(ItemID + "," + "\""+ BidderID + "\""+ "," +timeStr+ "," +amountStr); //BIDS////////////////
+                            userWriter.println("\"" + BidderID+"\"" + ","+ bidderRatingStr);                       //BIDDER USERS////////
+
+                            if(locStr!= null || countryStr !=null)                          //BIDDER LOCATION(If either non-null)////////
+                                locationWriter.println("\"" + BidderID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
+
                         }
                     }
+
+                    Element descriptionElement = (Element) curElement.getElementsByTagName("Description").item(0);
+                    String fullDescription = descriptionElement.getTextContent();
+                    String description4000 = fullDescription.substring(0, Math.min(fullDescription.length(), 4000)); 
+                    System.out.println("Description: " + description4000);
+
+
+                    itemWriter.println(ItemID + "," + "\""+ nameStr + "\""+ "," +"\"" +UserID+ "\"" + "," + currentlyStr + "," + buyPriceStr + ","
+                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + ","  +"\"" + description4000 + "\""); //ITEMS//////////////////
                 }
             }
 
             userWriter.close();
             bidWriter.close();
             itemWriter.close();
-            categoryWriter.close();           
+            categoryWriter.close();
+            latlongWriter.close();
+            locationWriter.close();           
         }
         catch(IOException e)
         {
