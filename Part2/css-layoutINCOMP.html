@@ -3,34 +3,95 @@
 <head>
 <style>
 
-#mainhead {
+div {
+	display:block;
+}
+
+#header {
     height: 80px;
+    width: 100%;
     background-color: yellow;
     font-size: 35pt;
-    margin-top:0px;
-    padding: 0;
-    position: relative;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    position: fixed;
+    top: 0;
+    left:0;
+    z-index:10;
     text-align: center;
-    vertical-align: middle;
+    line-height: 80px;
+
+}
+
+#footer {
+    height: 1em;
+    width: 100%;
+    background-color: cyan;
+    font-size: 1em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 00px;
+    padding-bottom: 0px;
+    position: fixed;
+    text-align: right;
+    bottom: 0;
+    left:0;
+    z-index:8;
+
 }
 
 #leftcol {
-	float:left;
-	width:50%;
+	width: calc(50% - 1.5em);
+	top: 80px;
+	bottom: calc (100% - 1em);
+	margin-left: 1em;
+	margin-right: 0.5em;
+	margin-bottom: 0em;
+	margin-top: 0em;
+	position: absolute;
+	left:0;
+	padding: 0px 0px 1em 0px;
+	overflow: scroll;
+	        z-index:5;
+
+
 }
 
 #rightcol {
-	float:right;
-	width:50%;
+	width: calc(50% - 1.5em);
+	top: 80px;
+	bottom: calc (100% - 1em);
+	margin-left: 0.5em;
+	margin-right: 1em;
+	margin-bottom: 0em;
+	margin-top: 0em;
+	padding: 0px 0px 1em 0px;
+	position: absolute;
+	right:0;
+	overflow: scroll;
+    z-index:5;
 }
 
+.test {
+	font-size: 85pt;
+}
+p{
+		margin:0;
+}
+ul {
+margin:0;
+}
+
+h1 { 
+	margin:0;
+}
 </style>
 </head>
 
 <body>
-<h1 id = "mainhead">
-<span style="vertical-align : middle;">CSS Layout Project</span>
-</h1>
+<div id="header">CSS Layout Project</div>
 
 <div id ="wrap">
 	<div id="leftcol" class="col">
@@ -45,6 +106,7 @@
 		<li>Security and user model</li>
 		<li>Web services and distributed transactions</li>
 	</ul>
+	<p>To help students digest the materials learned in the class, we will assign a quarter-long class project (which will be divided into multiple subparts), in which students have to build a Web service and a Web site that help users navigate an eBay data. The dataset together with the basic tools will be provided on the class Web site.</p>
 	</div>
 
 	<div id="rightcol" class="col">
@@ -111,5 +173,7 @@
 	</p>
 	</div>
 </div>
+<div id="footer">&copy; Copyright by University of California, Los Angeles (UCLA)</div>
+
 </body>
 </html>
