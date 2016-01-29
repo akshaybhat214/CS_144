@@ -204,7 +204,7 @@ class MyParserPrint {
         //org.w3c.dom.NodeList nList = doc.getElementsByTagName("Item");
         Element ElementArr[] = getElementsByTagNameNR(root, "Item");
             
-        System.out.println("----------------------------");
+        System.out.println("----------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         try
         {
@@ -218,127 +218,102 @@ class MyParserPrint {
             for (int i = 0; i < ElementArr.length ; i++) {
 
                 //Node nNode = nList.item(i);
-                Node nNode = ElementArr[i];
-                        
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-                        
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                //Node nNode = ElementArr[i];
 
-                    Element curElement = (Element) nNode;
+                String itemStr = ElementArr[i].getAttribute("ItemID");
+                System.out.println("Id: " + itemStr);
 
-                    String ItemID=curElement.getAttribute("ItemID");
-                    System.out.println("Id: " + ItemID);
-
-                    String nameStr=curElement.getElementsByTagName("Name").item(0).getTextContent();
-                    System.out.println("Name: " + nameStr);
-                    String currentlyStr=strip(curElement.getElementsByTagName("Currently").item(0).getTextContent());
-                    System.out.println("Currently: " + currentlyStr);
-
-                    String buyPriceStr= null;
-                    org.w3c.dom.NodeList nodeL=curElement.getElementsByTagName("Buy_Price");
-                    if (nodeL.getLength() !=0){
-                        buyPriceStr=strip(nodeL.item(0).getTextContent()); //STRIP
-                        System.out.println("Buy_Price: " + buyPriceStr);
-                    }
-
-                    String firstBidStr =strip(curElement.getElementsByTagName("First_Bid").item(0).getTextContent());
-                    System.out.println("First_Bid: " + firstBidStr);
-                    String nobStr= curElement.getElementsByTagName("Number_of_Bids").item(0).getTextContent();
-                    System.out.println("Number_of_Bids: " + nobStr);
-                    String countryStr=curElement.getElementsByTagName("Country").item(0).getTextContent();
-                    System.out.println("Country: " + countryStr);
-                    String startedStr=formatTime(curElement.getElementsByTagName("Started").item(0).getTextContent());
-                    System.out.println("Started: " + startedStr);
-                    String endStr=formatTime(curElement.getElementsByTagName("Ends").item(0).getTextContent());
-                    System.out.println("Ends: " + endStr);
-
-                    Element locElement = (Element) curElement.getElementsByTagName("Location").item(0);
-
-                    String locStr=locElement.getTextContent();
-                    System.out.println("Location: " + locStr);
-                    String latStr=null;
-                    latStr = locElement.getAttribute("Latitude");
-                    System.out.println("Latitude: " + latStr);
-                    String longStr=null;
-                    longStr = locElement.getAttribute("Latitude");
-                    System.out.println("Longitude: " + longStr);
-
-                    Element sellerElement = (Element) curElement.getElementsByTagName("Seller").item(0);
-                    String ratingStr=sellerElement.getAttribute("Rating");
-                    System.out.println("Seller Rating: " + ratingStr);
-                    String UserID=sellerElement.getAttribute("UserID");
-                    System.out.println("Seller ID: " + UserID);
-
-                    userWriter.println("\"" + UserID+"\"" + ","+ ratingStr);   //USERS////////
-
-                    locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
-
-                    if (latStr!=null && longStr!=null && latStr!="" && longStr!="")
-                        latlongWriter.println("\"" + UserID+"\"" + ","+ latStr +","+ longStr);//LatitudeLongitude/////
-
-                    String catStr = "";
-                    org.w3c.dom.NodeList catList = curElement.getElementsByTagName("Category");
-                    for (int c = 0; c < catList.getLength(); c++) {
-                        Node catNode = catList.item(c);
-                        if (catNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element catElement = (Element) catNode;
-                            catStr=catElement.getTextContent();
-                            System.out.println("Category : " + catStr);
-
-                            categoryWriter.println(ItemID + "," +"\"" + catStr+"\"");   //CATEGORY////////
-                        }
-                    }
-
-                    Element bidsElement = (Element) curElement.getElementsByTagName("Bids").item(0);
-                    org.w3c.dom.NodeList bidList = bidsElement.getElementsByTagName("Bid");
-                    for (int c = 0; c < bidList.getLength(); c++) {
-                        Node bidNode = bidList.item(c);
-                        if (bidNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                            Element bidElement = (Element) bidNode;
-
-                            Element bidderElement = (Element) bidElement.getElementsByTagName("Bidder").item(0);
-                            String BidderID=bidderElement.getAttribute("UserID");
-                            System.out.println("Bidder ID: " + BidderID);
-                            String bidderRatingStr=bidderElement.getAttribute("Rating");
-                            System.out.println("Bidder Rating: " + bidderRatingStr);
-                            
-                            String bidderLocationStr = null;
-                            String bidderCountryStr = null;
-                            org.w3c.dom.NodeList bidderNodeL=bidderElement.getElementsByTagName("Location");
-                            if (bidderNodeL.getLength() !=0){
-                                bidderLocationStr=bidderNodeL.item(0).getTextContent();
-                                System.out.println("Bidder Location: " + bidderLocationStr);
-                            }
-                            bidderNodeL=bidderElement.getElementsByTagName("Country");
-                            if (bidderNodeL.getLength() !=0){
-                                bidderCountryStr=bidderNodeL.item(0).getTextContent();
-                                System.out.println("Bidder Country: " + bidderCountryStr);
-                            }
-                            
-                            String timeStr=formatTime(bidElement.getElementsByTagName("Time").item(0).getTextContent());
-                            System.out.println("Bid Time: " + timeStr);
-                            String amountStr=strip(bidElement.getElementsByTagName("Amount").item(0).getTextContent());
-                            System.out.println("Bid Amount: " + amountStr);
-                            
-                            bidWriter.println(ItemID + "," + "\""+ BidderID + "\""+ "," +timeStr+ "," +amountStr); //BIDS////////////////
-                            userWriter.println("\"" + BidderID+"\"" + ","+ bidderRatingStr);                       //BIDDER USERS////////
-
-                            if(locStr!= null || countryStr !=null)                          //BIDDER LOCATION(If either non-null)////////
-                                locationWriter.println("\"" + BidderID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
-
-                        }
-                    }
-
-                    Element descriptionElement = (Element) curElement.getElementsByTagName("Description").item(0);
-                    String fullDescription = descriptionElement.getTextContent();
-                    String description4000 = fullDescription.substring(0, Math.min(fullDescription.length(), 4000)); 
-                    System.out.println("Description: " + description4000);
-
-
-                    itemWriter.println(ItemID + "," + "\""+ nameStr + "\""+ "," +"\"" +UserID+ "\"" + "," + currentlyStr + "," + buyPriceStr + ","
-                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + ","  +"\"" + description4000 + "\""); //ITEMS//////////////////
+                String nameStr= getElementTextByTagNameNR(ElementArr[i], "Name");
+                System.out.println("Name: " + nameStr);
+                String currentlyStr= strip(getElementTextByTagNameNR(ElementArr[i], "Currently"));
+                System.out.println("Currently: " + currentlyStr);
+                String buyPriceStr= strip(getElementTextByTagNameNR(ElementArr[i], "Buy_Price"));
+                System.out.println("Buy_Price: " + buyPriceStr);
+                if(buyPriceStr == ""){
+                    buyPriceStr=null;
                 }
+                String firstBidStr= strip(getElementTextByTagNameNR(ElementArr[i], "First_Bid"));
+                System.out.println("First_Bid: " + firstBidStr);
+                String nobStr= getElementTextByTagNameNR(ElementArr[i], "Number_of_Bids");
+                System.out.println("Number_of_Bids: " + nobStr);
+                String countryStr= getElementTextByTagNameNR(ElementArr[i], "Country");
+                System.out.println("Country: " + countryStr);
+                String startedStr= formatTime(getElementTextByTagNameNR(ElementArr[i], "Started"));
+                System.out.println("Started: " + startedStr);
+                String endStr= formatTime(getElementTextByTagNameNR(ElementArr[i], "Ends"));
+                System.out.println("Ends: " + endStr);
+
+                Element locElement = getElementByTagNameNR(ElementArr[i], "Location");
+                String locStr = getElementText(locElement);
+                String latStr = locElement.getAttribute("Latitude");
+                String longStr = locElement.getAttribute("Longitude");
+                System.out.println("Location: " + locStr);
+                System.out.println("Latitude: " + latStr);
+                System.out.println("Longitude: " + longStr);
+
+                        
+                Element sellerElement = getElementByTagNameNR(ElementArr[i], "Seller");
+                String UserID = sellerElement.getAttribute("UserID");
+                String ratingStr = sellerElement.getAttribute("Rating");
+                System.out.println("Seller UserID: " + UserID);
+                System.out.println("Seller Rating: " + ratingStr);
+
+                userWriter.println("\"" + UserID+"\"" + ","+ ratingStr); 
+                locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
+
+                if (latStr!="" && longStr!="")
+                    latlongWriter.println("\"" + UserID+"\"" + ","+ latStr +","+ longStr);//LatitudeLongitude/////
+
+
+                Element catArr[] = getElementsByTagNameNR(ElementArr[i], "Category");
+                for (int c = 0; c < catArr.length ; c++) {
+                    String catStr = getElementText(catArr[c]);
+                    System.out.println("Category : " + catStr);
+                    categoryWriter.println(itemStr + "," +"\"" + catStr+"\"");   //CATEGORY////////
+
+                }
+
+                Element bidsElement = getElementByTagNameNR(ElementArr[i], "Bids");
+                Element bidArr[] = getElementsByTagNameNR(bidsElement, "Bid");
+                for (int c = 0; c < bidArr.length ; c++) {
+                    Element bidderElement = getElementByTagNameNR(bidArr[c], "Bidder");
+                    String BidderID = bidderElement.getAttribute("UserID");
+                    String bidderRatingStr = bidderElement.getAttribute("Rating");
+                    String bidderLocationStr= getElementTextByTagNameNR(bidderElement, "Location");
+                    String bidderCountryStr= getElementTextByTagNameNR(bidderElement, "Country");
+                    System.out.println("Bidder ID: " + BidderID);
+                    System.out.println("Bidder Rating: " + bidderRatingStr);
+                    System.out.println("Bidder Location: " + bidderLocationStr);
+                    System.out.println("Bidder Country: " + bidderCountryStr);
+                    if(bidderCountryStr == ""){
+                        bidderCountryStr=null;
+                    }
+                    if(bidderLocationStr == ""){
+                        bidderLocationStr=null;
+                    }
+
+                    String timeStr = formatTime(getElementTextByTagNameNR(bidArr[c], "Time"));
+                    String amountStr = strip(getElementTextByTagNameNR(bidArr[c], "Amount"));
+                    System.out.println("Bid Time: " + timeStr);
+                    System.out.println("Bid Amount: " + amountStr);
+
+                    bidWriter.println(itemStr + "," + "\""+ BidderID + "\""+ "," +timeStr+ "," +amountStr); //BIDS////////////////
+                    userWriter.println("\"" + BidderID+"\"" + ","+ bidderRatingStr);                       //BIDDER USERS////////
+
+                    if(locStr!= null || countryStr !=null)                          //BIDDER LOCATION(If either non-null)////////
+                        locationWriter.println("\"" + BidderID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
+
+                }
+
+                String fullDescription= getElementTextByTagNameNR(ElementArr[i], "Description");
+                String description4000=fullDescription.substring(0, Math.min(fullDescription.length(), 4000)); 
+                System.out.println("Ends: " + description4000);
+
+                itemWriter.println(itemStr + "," + "\""+ nameStr + "\""+ "," +"\"" +UserID+ "\"" + "," + currentlyStr + "," + buyPriceStr + ","
+                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + ","  +"\"" + description4000 + "\""); //ITEMS//////////////////
+            
+                System.out.println("----------------------------");
+
             }
 
             userWriter.close();
