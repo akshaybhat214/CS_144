@@ -17,7 +17,7 @@ CREATE TABLE UserLocation(
 );
 
 CREATE TABLE LatLong(
-	UserId Varchar(100) PRIMARY KEY,
+	UserId Varchar(100),
 	Latitiude DECIMAL(8,6),
 	Longitude DECIMAL(8,6),
 	FOREIGN KEY (UserId) REFERENCES Users (UserId)
@@ -61,4 +61,4 @@ CREATE TABLE Categories(
 	#Country Varchar(100) DEFAULT NULL ,
 	#Lat DECIMAL(8,6) DEFAULT NULL,
 	#Long DECIMAL(8,6) DEFAULT NULL,
-);
+
