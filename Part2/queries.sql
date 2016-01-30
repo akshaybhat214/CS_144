@@ -1,6 +1,6 @@
 SELECT COUNT(*) FROM Users;
 
-SELECT COUNT(*) FROM Items, UserLocation WHERE SellerId = UserId AND BINARY Location='New York';
+SELECT COUNT(*) FROM Items WHERE BINARY Location='New York';
 
 SELECT COUNT(*) FROM (SELECT ItemId FROM Categories GROUP BY ItemId HAVING COUNT(Category) = 4) FourCat;
 

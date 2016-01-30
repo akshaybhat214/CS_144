@@ -33,6 +33,8 @@ CREATE TABLE Items(
 	NumOfBids INT,
 	Started TIMESTAMP,
 	Ends TIMESTAMP,
+	Location Varchar(100),
+	Country Varchar(100),
 	Description Varchar(4000),
 	FOREIGN KEY (SellerId) REFERENCES Users (UserId)	
 );

@@ -261,7 +261,7 @@ class MyParser {
                 System.out.println("Seller Rating: " + ratingStr);*/
 
                 userWriter.println("\"" + UserID+"\"" + ","+ ratingStr); 
-                locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
+                //locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
 
                 if (latStr!="" && longStr!="")
                     latlongWriter.println("\"" + UserID+"\"" + ","+ latStr +","+ longStr);//LatitudeLongitude/////
@@ -315,7 +315,7 @@ class MyParser {
                 //System.out.println("Description: " + description4000);
 
                 itemWriter.println(itemStr + "," + "\""+ nameStr + "\""+ "," +"\"" +UserID+ "\"" + "," + currentlyStr + "," + buyPriceStr + ","
-                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + ","  +"\"" + description4000 + "\""); //ITEMS//////////////////
+                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + "," + "\"" + locStr +"\"" +"," + "\""+ countryStr+"\"" +"," +"\"" + description4000 + "\""); //ITEMS//////////////////
 
             }
 
