@@ -204,7 +204,7 @@ class MyParser {
         //org.w3c.dom.NodeList nList = doc.getElementsByTagName("Item");
         Element ElementArr[] = getElementsByTagNameNR(root, "Item");
             
-        System.out.println("----------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //System.out.println("----------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         try
         {
@@ -212,7 +212,6 @@ class MyParser {
             PrintWriter itemWriter = new PrintWriter(new BufferedWriter(new FileWriter("item-data.csv", true)));
             PrintWriter categoryWriter = new PrintWriter(new BufferedWriter(new FileWriter("category-data.csv", true)));
             PrintWriter bidWriter = new PrintWriter(new BufferedWriter(new FileWriter("bid-data.csv", true)));
-            PrintWriter latlongWriter = new PrintWriter(new BufferedWriter(new FileWriter("latlong-data.csv", true)));
             PrintWriter locationWriter = new PrintWriter(new BufferedWriter(new FileWriter("location-data.csv", true)));
 
 
@@ -263,9 +262,6 @@ class MyParser {
                 userWriter.println("\"" + UserID+"\"" + ","+ ratingStr); 
                 //locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
 
-                if (latStr!="" && longStr!="")
-                    latlongWriter.println("\"" + UserID+"\"" + ","+ latStr +","+ longStr);//LatitudeLongitude/////
-
 
                 Element catArr[] = getElementsByTagNameNR(ElementArr[i], "Category");
                 for (int c = 0; c < catArr.length ; c++) {
@@ -315,7 +311,7 @@ class MyParser {
                 //System.out.println("Description: " + description4000);
 
                 itemWriter.println(itemStr + "," + "\""+ nameStr + "\""+ "," +"\"" +UserID+ "\"" + "," + currentlyStr + "," + buyPriceStr + ","
-                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + "," + "\"" + locStr +"\"" +"," + "\""+ countryStr+"\"" +"," +"\"" + description4000 + "\""); //ITEMS//////////////////
+                      +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + "," + "\"" + locStr +"\"" +"," + "\""+ countryStr+"\"" +"," + latStr + ","+ longStr + "," +"\"" + description4000 + "\""); //ITEMS//////////////////
 
             }
 
@@ -323,7 +319,6 @@ class MyParser {
             bidWriter.close();
             itemWriter.close();
             categoryWriter.close();
-            latlongWriter.close();
             locationWriter.close();           
         }
         catch(IOException e)

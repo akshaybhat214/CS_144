@@ -2,11 +2,6 @@
 CREATE TABLE Users(
 	UserId Varchar(100) PRIMARY KEY,
 	Rating INT
-	#BuyRating INT,
-	#Location Varchar(100) DEFAULT NULL,
-	#Country Varchar(100) DEFAULT NULL ,
-	#Lat DECIMAL(8,6) DEFAULT NULL,
-	#Long DECIMAL(8,6) DEFAULT NULL,
 );
 
 CREATE TABLE UserLocation(
@@ -16,12 +11,6 @@ CREATE TABLE UserLocation(
 	FOREIGN KEY (UserId) REFERENCES Users (UserId)		
 );
 
-CREATE TABLE LatLong(
-	UserId Varchar(100),
-	Latitiude DECIMAL(8,6),
-	Longitude DECIMAL(8,6),
-	FOREIGN KEY (UserId) REFERENCES Users (UserId)
-);
 
 CREATE TABLE Items(
 	ItemId INT PRIMARY KEY,
@@ -35,6 +24,8 @@ CREATE TABLE Items(
 	Ends TIMESTAMP,
 	Location Varchar(100),
 	Country Varchar(100),
+	Latitiude DECIMAL(8,6),
+	Longitude DECIMAL(8,6),
 	Description Varchar(4000),
 	FOREIGN KEY (SellerId) REFERENCES Users (UserId)	
 );
@@ -55,12 +46,4 @@ CREATE TABLE Categories(
 	FOREIGN KEY (ItemId) REFERENCES Items (ItemId)
 );
 
-#CREATE TABLE Users(
-#	UserId Varchar(100) PRIMARY KEY,
-#	Rating INT
-	#BuyRating INT,
-	#Location Varchar(100) DEFAULT NULL,
-	#Country Varchar(100) DEFAULT NULL ,
-	#Lat DECIMAL(8,6) DEFAULT NULL,
-	#Long DECIMAL(8,6) DEFAULT NULL,
 

@@ -13,15 +13,10 @@ UserLocation(UserId PRIMARY KEY,Location,Country)
 FDs: UserId -> {Location, Country}
 
 
-LatLong(UserId, Latitiude, Longitude)
-	--> UserId is a foreign key on Users.UserId	
-FDs: None
-
-
-Items(ItemId, Name , SellerId , Currently, BuyPrice, FirstBid, NumOfBids, Started, Ends, Description)
+Items(ItemId, Name , SellerId , Currently, BuyPrice, FirstBid, NumOfBids, Started, Ends, Location, Country, Latitiude, Longitude, Description)
 	--> ItemId is the primary key.
 	--> SellerId is a foreign key on Users.UserId	
-FDs: ItemId -> {Name , SellerId , Currently, BuyPrice, FirstBid, NumOfBids, Started, Ends, Description}
+FDs: ItemId -> {Name , SellerId , Currently, BuyPrice, FirstBid, NumOfBids, Started, Ends, Location, Country, Latitiude, Longitude, Description}
 
 
 Bids( ItemId, BidderId, Time, Amount)
