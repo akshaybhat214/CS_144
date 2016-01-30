@@ -282,7 +282,8 @@ class MyParserPrint {
 
                 Element bidsElement = getElementByTagNameNR(ElementArr[i], "Bids");
                 Element bidArr[] = getElementsByTagNameNR(bidsElement, "Bid");
-                for (int c = 0; c < bidArr.length ; c++) {
+                for (int c = 0; c < bidArr.length ; c++) 
+                {
                     Element bidderElement = getElementByTagNameNR(bidArr[c], "Bidder");
                     String BidderID = bidderElement.getAttribute("UserID");
                     BidderID=BidderID.replace("\"","\\\"");
@@ -307,10 +308,10 @@ class MyParserPrint {
                     System.out.println("Bid Time: " + timeStr);
                     System.out.println("Bid Amount: " + amountStr);
 
-                    bidWriter.println(itemStr + "," + "\""+ BidderID + "\""+ "," +timeStr+ "," +amountStr); //BIDS////////////////
-                    userWriter.println("\"" + BidderID+"\"" + ","+ bidderRatingStr);                       //BIDDER USERS////////
+                    bidWriter.println(itemStr + "," + "\""+ BidderID + "\""+ "," +timeStr+ "," +amountStr); //BIDS//////////////////
+                    userWriter.println("\"" + BidderID+"\"" + ","+ bidderRatingStr);                       //BIDDER USERS///////////
 
-                    if(locStr!= null || countryStr !=null)                          //BIDDER LOCATION(If either non-null)////////
+                    if(locStr!= null || countryStr !=null)                          /////BIDDER LOCATION(If either non-null)////////
                         locationWriter.println("\"" + BidderID+"\"" + ","+ "\"" + bidderLocationStr +"\"" +"," + "\""+ bidderCountryStr +"\""); 
 
                 }
@@ -339,39 +340,10 @@ class MyParserPrint {
             e.printStackTrace();
         }
 
-
-        /* Fill in code here (you will probably need to write auxiliary
-            methods). */
-     
         /**************************************************************/
         
        // recursiveDescent(doc, 0);
-    }
-    
-    public static void recursiveDescent(Node n, int level) {
-        // adjust indentation according to level
-        for(int i=0; i<4*level; i++)
-            System.out.print(" ");
-        
-        // dump out node name, type, and value  
-        String ntype = typeName[n.getNodeType()];
-        String nname = n.getNodeName();
-        String nvalue = n.getNodeValue();
-        
-        System.out.println("Type = " + ntype + ", Name = " + nname + ", Value = " + nvalue);
-        
-        // dump out attributes if any
-        org.w3c.dom.NamedNodeMap nattrib = n.getAttributes();
-        if(nattrib != null && nattrib.getLength() > 0)
-            for(int i=0; i<nattrib.getLength(); i++)
-                recursiveDescent(nattrib.item(i),  level+1);
-        
-        // now walk through its children list
-        org.w3c.dom.NodeList nlist = n.getChildNodes();
-        
-        for(int i=0; i<nlist.getLength(); i++)
-            recursiveDescent(nlist.item(i), level+1);
-    }  
+    } 
     
     public static void main (String[] args) {
         if (args.length == 0) {

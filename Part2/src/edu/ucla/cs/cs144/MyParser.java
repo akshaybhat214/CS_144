@@ -218,51 +218,47 @@ class MyParser {
 
             for (int i = 0; i < ElementArr.length ; i++) {
 
-                //Node nNode = nList.item(i);
-                //Node nNode = ElementArr[i];
-
                 String itemStr = ElementArr[i].getAttribute("ItemID");
-                System.out.println("Id: " + itemStr);
+                //System.out.println("Id: " + itemStr);
 
                 String nameStr= getElementTextByTagNameNR(ElementArr[i], "Name");
                 nameStr=nameStr.replace("\"","\\\"");
-                System.out.println("Name: " + nameStr);
+                //System.out.println("Name: " + nameStr);
 
                 String currentlyStr= strip(getElementTextByTagNameNR(ElementArr[i], "Currently"));
-                System.out.println("Currently: " + currentlyStr);
+                //System.out.println("Currently: " + currentlyStr);
                 String buyPriceStr= strip(getElementTextByTagNameNR(ElementArr[i], "Buy_Price"));
-                System.out.println("Buy_Price: " + buyPriceStr);
+                //System.out.println("Buy_Price: " + buyPriceStr);
                 if(buyPriceStr == ""){
                     buyPriceStr=null;
                 }
                 String firstBidStr= strip(getElementTextByTagNameNR(ElementArr[i], "First_Bid"));
-                System.out.println("First_Bid: " + firstBidStr);
+                //System.out.println("First_Bid: " + firstBidStr);
                 String nobStr= getElementTextByTagNameNR(ElementArr[i], "Number_of_Bids");
-                System.out.println("Number_of_Bids: " + nobStr);
+                //System.out.println("Number_of_Bids: " + nobStr);
                 String countryStr= getElementTextByTagNameNR(ElementArr[i], "Country");
                 countryStr=countryStr.replace("\"","\\\"");
-                System.out.println("Country: " + countryStr);
+                //System.out.println("Country: " + countryStr);
                 String startedStr= formatTime(getElementTextByTagNameNR(ElementArr[i], "Started"));
-                System.out.println("Started: " + startedStr);
+                //System.out.println("Started: " + startedStr);
                 String endStr= formatTime(getElementTextByTagNameNR(ElementArr[i], "Ends"));
-                System.out.println("Ends: " + endStr);
+                //System.out.println("Ends: " + endStr);
 
                 Element locElement = getElementByTagNameNR(ElementArr[i], "Location");
                 String locStr = getElementText(locElement);
                 locStr=locStr.replace("\"","\\\"");
                 String latStr = locElement.getAttribute("Latitude");
                 String longStr = locElement.getAttribute("Longitude");
-                System.out.println("Location: " + locStr);
-                System.out.println("Latitude: " + latStr);
-                System.out.println("Longitude: " + longStr);
+                /*System.out.println("Location: " + locStr); System.out.println("Latitude: " + latStr);
+                System.out.println("Longitude: " + longStr);*/
 
                         
                 Element sellerElement = getElementByTagNameNR(ElementArr[i], "Seller");
                 String UserID = sellerElement.getAttribute("UserID");
                 UserID=UserID.replace("\"","\\\"");
                 String ratingStr = sellerElement.getAttribute("Rating");
-                System.out.println("Seller UserID: " + UserID);
-                System.out.println("Seller Rating: " + ratingStr);
+                /*System.out.println("Seller UserID: " + UserID);
+                System.out.println("Seller Rating: " + ratingStr);*/
 
                 userWriter.println("\"" + UserID+"\"" + ","+ ratingStr); 
                 locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
@@ -275,13 +271,14 @@ class MyParser {
                 for (int c = 0; c < catArr.length ; c++) {
                     String catStr = getElementText(catArr[c]);
                     catStr=catStr.replace("\"","\\\"");
-                    System.out.println("Category : " + catStr);
+                    //System.out.println("Category : " + catStr);
                     categoryWriter.println(itemStr + "," +"\"" + catStr+"\"");   //CATEGORY////////
 
                 }
 
                 Element bidsElement = getElementByTagNameNR(ElementArr[i], "Bids");
                 Element bidArr[] = getElementsByTagNameNR(bidsElement, "Bid");
+
                 for (int c = 0; c < bidArr.length ; c++) {
                     Element bidderElement = getElementByTagNameNR(bidArr[c], "Bidder");
                     String BidderID = bidderElement.getAttribute("UserID");
@@ -291,10 +288,8 @@ class MyParser {
                     bidderLocationStr=bidderLocationStr.replace("\"","\\\"");
                     String bidderCountryStr= getElementTextByTagNameNR(bidderElement, "Country");
                     bidderCountryStr=bidderCountryStr.replace("\"","\\\"");
-                    System.out.println("Bidder ID: " + BidderID);
-                    System.out.println("Bidder Rating: " + bidderRatingStr);
-                    System.out.println("Bidder Location: " + bidderLocationStr);
-                    System.out.println("Bidder Country: " + bidderCountryStr);
+                    /*System.out.println("Bidder ID: " + BidderID); System.out.println("Bidder Rating: " + bidderRatingStr);
+                    System.out.println("Bidder Location: " + bidderLocationStr);System.out.println("Bidder Country: " + bidderCountryStr);*/
                     if(bidderCountryStr == ""){
                         bidderCountryStr=null;
                     }
@@ -304,8 +299,7 @@ class MyParser {
 
                     String timeStr = formatTime(getElementTextByTagNameNR(bidArr[c], "Time"));
                     String amountStr = strip(getElementTextByTagNameNR(bidArr[c], "Amount"));
-                    System.out.println("Bid Time: " + timeStr);
-                    System.out.println("Bid Amount: " + amountStr);
+                    /*System.out.println("Bid Time: " + timeStr); System.out.println("Bid Amount: " + amountStr);*/
 
                     bidWriter.println(itemStr + "," + "\""+ BidderID + "\""+ "," +timeStr+ "," +amountStr); //BIDS////////////////
                     userWriter.println("\"" + BidderID+"\"" + ","+ bidderRatingStr);                       //BIDDER USERS////////
@@ -318,12 +312,10 @@ class MyParser {
                 String fullDescription= getElementTextByTagNameNR(ElementArr[i], "Description");
                 String description4000=fullDescription.substring(0, Math.min(fullDescription.length(), 4000)); 
                 description4000=description4000.replace("\"","\\\"");
-                System.out.println("Description: " + description4000);
+                //System.out.println("Description: " + description4000);
 
                 itemWriter.println(itemStr + "," + "\""+ nameStr + "\""+ "," +"\"" +UserID+ "\"" + "," + currentlyStr + "," + buyPriceStr + ","
                       +firstBidStr + "," + nobStr + "," + startedStr + ","+ endStr + ","  +"\"" + description4000 + "\""); //ITEMS//////////////////
-                
-                System.out.println("----------------------------");
 
             }
 
