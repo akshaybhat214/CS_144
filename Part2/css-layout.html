@@ -32,18 +32,18 @@ div {
     font-size: 1em;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-top: 00px;
+    padding-top: 0px;
     padding-bottom: 0px;
     position: fixed;
     text-align: right;
     bottom: 0;
     left:0;
-    z-index:8;
+    z-index:8;	
 }
 
 #leftcol {
 	width: calc(50% - 1.5em);
-	top: 80px;
+	top: 0px;
 	bottom: calc (100% - 1em);
 	margin-left: 1em;
 	margin-right: 0.5em;
@@ -58,7 +58,7 @@ div {
 
 #rightcol {
 	width: calc(50% - 1.5em);
-	top: 80px;
+	top: 0px;
 	bottom: calc (100% - 1em);
 	margin-left: 0.5em;
 	margin-right: 1em;
@@ -73,7 +73,12 @@ div {
 
 #wrap {
 	width: 100%;
-	overflow: scroll;
+	top: 80px;
+	height: 100%;
+	bottom: calc (100% - 1em);
+	overflow-y: scroll;
+	position: absolute;	
+	overflow-x:hidden; 
 }
 
 .test {
