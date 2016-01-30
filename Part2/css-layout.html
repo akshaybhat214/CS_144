@@ -22,7 +22,7 @@ div {
     z-index:10;
     text-align: center;
     line-height: 80px;
-
+	overflow: hidden;
 }
 
 #footer {
@@ -71,6 +71,11 @@ div {
     z-index:5;
 }
 
+#wrap {
+	width: 100%;
+	overflow: scroll;
+}
+
 .test {
 	font-size: 85pt;
 }
@@ -90,7 +95,9 @@ h1 {
 </head>
 
 <body>
-<div id="header">CSS Layout Project</div>
+<div id="header">
+<div id="header-text">CSS Layout Project</div>
+</div>
 
 <div id ="wrap">
 	<div id="leftcol" class="col">
