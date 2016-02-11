@@ -55,11 +55,12 @@ public class Indexer {
         //s.executeUpdate("CREATE TABLE Sellers(bar VARCHAR(40), beer VARCHAR(40), price REAL)" ) ;
         ResultSet rs = s.executeQuery("SELECT * FROM Users WHERE Rating > 10000") ;
         String userid, rating ;
-        while( rs.next() ){
+        while( rs.next() )
+        {
                  userid = rs.getString("UserId");
                  rating = rs.getString("Rating");
                  System.out.println(userid + " has a Rating of: " + rating);
-            }
+        }
         rs.close();
         s.close();
         conn.close();
@@ -97,9 +98,7 @@ public class Indexer {
 	 * 
 	 */
 
-
         // close the database connection
-      
         closeIndexWriter();      
 
     }    
