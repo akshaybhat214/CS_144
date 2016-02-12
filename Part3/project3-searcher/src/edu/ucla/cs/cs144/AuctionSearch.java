@@ -32,6 +32,7 @@ import org.apache.lucene.util.Version;
 import edu.ucla.cs.cs144.DbManager;
 import edu.ucla.cs.cs144.SearchRegion;
 import edu.ucla.cs.cs144.SearchResult;
+import edu.ucla.cs.cs144.SearchEngine;
 
 public class AuctionSearch implements IAuctionSearch {
 
@@ -51,30 +52,28 @@ public class AuctionSearch implements IAuctionSearch {
          */
 	
 	public SearchResult[] basicSearch(String query, int numResultsToSkip, 
-			int numResultsToReturn) throws IOException, ParseException {
-		Query queryParsed = parser.parse(query);   
-		int n= numResultsToSkip+numResultsToReturn;     
-        IndexSearcher searcher=null;
-        TopDocs topDocs=searcher.search(queryParsed, n);
+			int numResultsToReturn) {
 
-		System.out.println("Results found: " + topDocs.totalHits);
-        ScoreDoc[] hits = topDocs.scoreDocs;
-        SearchResult ret[numResultsToReturn];
-        for (int i = 0; i < hits.length; i++) {
-            Document doc = se.getDocument(hits[i].doc);
-            String itemid=doc.get("itemid");
-            String name=doc.get("name");
-            System.out.println(itemid
-                               + " " + name
-                               + " (" + hits[i].score + ")");
-            if (i>=numResultsToSkip){
-            	System.out.println("real started");
-            	ret[i-numResultsToReturn]= new SearchResult(itemid, name);
+            try
+            {
+                SearchEngine se = new SearchEngine();
+                TopDocs topDocs = se.performSearch("superman", 100);
+
+                System.out.println("Results found: " + topDocs.totalHits);
+                ScoreDoc[] hits = topDocs.scoreDocs;
+                for (int i = 0; i < hits.length; i++) {
+                    Document doc = se.getDocument(hits[i].doc);
+                    System.out.println(doc.get("itemid")+ " " + doc.get("name"));
+                }
+            }catch(IOException | ParseException e){
+                e.printStackTrace();
             }
+
+            System.out.println("performSearch done");
+            return new SearchResult[2];
         }
-        System.out.println("performSearch done");
-        return ret;
-	}
+
+
 
 	public SearchResult[] spatialSearch(String query, SearchRegion region,
 			int numResultsToSkip, int numResultsToReturn) {

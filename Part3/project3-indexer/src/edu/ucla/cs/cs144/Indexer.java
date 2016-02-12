@@ -32,7 +32,7 @@ public class Indexer {
     
     public IndexWriter getIndexWriter(boolean create) throws IOException {
         if (indexWriter == null) {
-            Directory indexDir = FSDirectory.open(new File("index-directory"));
+            Directory indexDir = FSDirectory.open(new File("/var/lib/lucene/index-directory"));
             IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_10_2, new StandardAnalyzer());
             indexWriter = new IndexWriter(indexDir, config);
         }
@@ -47,31 +47,33 @@ public class Indexer {
     public void rebuildIndexes() throws IOException {
 
         Connection conn = null;
-        getIndexWriter(true); //changed
+        getIndexWriter(false); //changed
           // create a connection to the database to retrieve Items from MySQL
     try {
         conn = DbManager.getConnection(true);
         Statement s = conn.createStatement() ;
-        ResultSet rs = s.executeQuery("SELECT ItemId, Name, Description FROM Items WHERE ItemId <1050000000 AND ItemId > 1049555000");
+        ResultSet rs = s.executeQuery("SELECT ItemId, Name, Description FROM Items");//WHERE ItemId <1050000000 AND ItemId > 1049555000
         String cur_itemId, cur_name, cur_description;
-        Document doc = new Document();
             while( rs.next() )
             {
+                    Document doc = new Document();
+
                     /*Get string values of fields from SQL query results*/
                     cur_itemId = rs.getString("ItemId");
                     cur_name = rs.getString("Name");
                     cur_description =rs.getString("Description");
                     String categoryString = getCategoryList(conn, cur_itemId);
-                    String fullSearchableText = cur_name + categoryString+ cur_description;
+                    String fullSearchableText = (cur_name + categoryString+ cur_description);
+                    //System.out.println(fullSearchableText);
 
                     /*Add fields to the document before writing*/
-                    doc.add(new StringField("itemid", cur_itemId, Field.Store.YES));
-                    doc.add(new StringField("name", cur_name, Field.Store.YES));
-                    doc.add(new StringField("description", cur_description, Field.Store.NO));
-                    doc.add(new StringField("categories", categoryString, Field.Store.NO));
-                    doc.add(new StringField("fullSearch", fullSearchableText, Field.Store.NO));
-
+                    doc.add(new Field("itemid", cur_itemId, Field.Store.YES, Field.Index.NO));
+                    doc.add(new Field("name", cur_name, Field.Store.YES, Field.Index.ANALYZED));
+                    doc.add(new Field("description", cur_description, Field.Store.NO, Field.Index.ANALYZED));
+                    doc.add(new Field("categories", categoryString, Field.Store.YES, Field.Index.ANALYZED));
+                    doc.add(new Field("content", fullSearchableText, Field.Store.NO, Field.Index.ANALYZED));
                     indexWriter.addDocument(doc);
+                    
                     //System.out.println(itemId + " has a name: " + description);
             }
         rs.close();
@@ -132,11 +134,13 @@ public class Indexer {
         try {
             Statement s2 = conn.createStatement();
             ResultSet rs = s2.executeQuery("SELECT Category FROM Categories WHERE ItemId ="+ itemId);
-            while(rs.next())
-            {
-                catList += " ";
-                catList += rs.getString("Category");
-            }
+              while(rs.next())
+              {
+                  catList +=" ";
+                  catList += rs.getString("Category");
+              }
+            rs.close();
+            s2.close();
 
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
