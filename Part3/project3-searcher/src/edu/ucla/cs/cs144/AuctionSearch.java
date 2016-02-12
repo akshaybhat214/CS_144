@@ -51,9 +51,29 @@ public class AuctionSearch implements IAuctionSearch {
          */
 	
 	public SearchResult[] basicSearch(String query, int numResultsToSkip, 
-			int numResultsToReturn) {
-		// TODO: Your code here!
-		return new SearchResult[0];
+			int numResultsToReturn) throws IOException, ParseException {
+		Query queryParsed = parser.parse(query);   
+		int n= numResultsToSkip+numResultsToReturn;     
+        IndexSearcher searcher=null;
+        TopDocs topDocs=searcher.search(queryParsed, n);
+
+		System.out.println("Results found: " + topDocs.totalHits);
+        ScoreDoc[] hits = topDocs.scoreDocs;
+        SearchResult ret[numResultsToReturn];
+        for (int i = 0; i < hits.length; i++) {
+            Document doc = se.getDocument(hits[i].doc);
+            String itemid=doc.get("itemid");
+            String name=doc.get("name");
+            System.out.println(itemid
+                               + " " + name
+                               + " (" + hits[i].score + ")");
+            if (i>=numResultsToSkip){
+            	System.out.println("real started");
+            	ret[i-numResultsToReturn]= new SearchResult(itemid, name);
+            }
+        }
+        System.out.println("performSearch done");
+        return ret;
 	}
 
 	public SearchResult[] spatialSearch(String query, SearchRegion region,
