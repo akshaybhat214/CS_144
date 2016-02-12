@@ -47,26 +47,39 @@ public class Indexer {
     public void rebuildIndexes() throws IOException {
 
         Connection conn = null;
-        getIndexWriter(true);
+        getIndexWriter(true); //changed
           // create a connection to the database to retrieve Items from MySQL
-	try {
-	    conn = DbManager.getConnection(true);
+    try {
+        conn = DbManager.getConnection(true);
         Statement s = conn.createStatement() ;
-        //s.executeUpdate("CREATE TABLE Sellers(bar VARCHAR(40), beer VARCHAR(40), price REAL)" ) ;
-        ResultSet rs = s.executeQuery("SELECT * FROM Users WHERE Rating > 10000") ;
-        String userid, rating ;
-        while( rs.next() )
-        {
-                 userid = rs.getString("UserId");
-                 rating = rs.getString("Rating");
-                 System.out.println(userid + " has a Rating of: " + rating);
-        }
+        ResultSet rs = s.executeQuery("SELECT ItemId, Name, Description FROM Items WHERE ItemId <1050000000 AND ItemId > 1049555000");
+        String cur_itemId, cur_name, cur_description;
+        Document doc = new Document();
+            while( rs.next() )
+            {
+                    /*Get string values of fields from SQL query results*/
+                    cur_itemId = rs.getString("ItemId");
+                    cur_name = rs.getString("Name");
+                    cur_description =rs.getString("Description");
+                    String categoryString = getCategoryList(conn, cur_itemId);
+                    String fullSearchableText = cur_name + categoryString+ cur_description;
+
+                    /*Add fields to the document before writing*/
+                    doc.add(new StringField("itemid", cur_itemId, Field.Store.YES));
+                    doc.add(new StringField("name", cur_name, Field.Store.YES));
+                    doc.add(new StringField("description", cur_description, Field.Store.NO));
+                    doc.add(new StringField("categories", categoryString, Field.Store.NO));
+                    doc.add(new StringField("fullSearch", fullSearchableText, Field.Store.NO));
+
+                    indexWriter.addDocument(doc);
+                    //System.out.println(itemId + " has a name: " + description);
+            }
         rs.close();
         s.close();
         conn.close();
         //System.out.println("Hellooo");
 
-	} catch (SQLException ex){
+    } catch (SQLException ex){
             System.out.println("SQLException caught");
             System.out.println("---");
             while ( ex != null ){
@@ -79,9 +92,9 @@ public class Indexer {
        }
 
 
-	/*
-	 * Add your code here to retrieve Items using the connection
-	 * and add corresponding entries to your Lucene inverted indexes.
+    /*
+     * Add your code here to retrieve Items using the connection
+     * and add corresponding entries to your Lucene inverted indexes.
          *
          * You will have to use JDBC API to retrieve MySQL data from Java.
          * Read our tutorial on JDBC if you do not know how to use JDBC.
@@ -95,8 +108,8 @@ public class Indexer {
          * If you create new classes, make sure that
          * the classes become part of "edu.ucla.cs.cs144" package
          * and place your class source files at src/edu/ucla/cs/cs144/.
-	 * 
-	 */
+     * 
+     */
 
         // close the database connection
         closeIndexWriter();      
@@ -108,8 +121,28 @@ public class Indexer {
     try {
         Indexer idx = new Indexer();
         idx.rebuildIndexes();
-    } catch (Exception e) {
-        System.out.println("Exception caught.\n");
+        } catch (Exception e) {
+            System.out.println("Exception caught:"+ e.getMessage());
+        }
     }
-    }   
+
+    private static String getCategoryList(Connection conn, String itemId) {
+        String catList="";
+
+        try {
+            Statement s2 = conn.createStatement();
+            ResultSet rs = s2.executeQuery("SELECT Category FROM Categories WHERE ItemId ="+ itemId);
+            while(rs.next())
+            {
+                catList += " ";
+                catList += rs.getString("Category");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+
+        //  System.out.println(catList+ "\n");
+        return catList;
+    }       
 }
