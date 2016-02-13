@@ -33,6 +33,7 @@ import edu.ucla.cs.cs144.DbManager;
 import edu.ucla.cs.cs144.SearchRegion;
 import edu.ucla.cs.cs144.SearchResult;
 import edu.ucla.cs.cs144.SearchEngine;
+//import edu.ucla.cs.cs144.XMLConverter;
 
 import edu.ucla.cs.cs144.XmlDataString;
 
@@ -56,12 +57,12 @@ public class AuctionSearch implements IAuctionSearch {
 	public SearchResult[] basicSearch(String query, int numResultsToSkip, 
 			int numResultsToReturn) {
             SearchResult[] ret=new SearchResult[numResultsToReturn]; 
+            int added=0;
             try
             {
                 SearchEngine se = new SearchEngine();
                 int n=numResultsToReturn+numResultsToSkip;
                 TopDocs topDocs = se.performSearch(query, n);
-                int added=0;
                 System.out.println("Results found: " + topDocs.totalHits);
                 ScoreDoc[] hits = topDocs.scoreDocs;
                 for (int i = 0; i < hits.length; i++) {
@@ -72,12 +73,15 @@ public class AuctionSearch implements IAuctionSearch {
                     }
                     System.out.println(doc.get("itemid")+ " " + doc.get("name"));
                 }
+                
+
             }catch(IOException | ParseException e){
                 e.printStackTrace();
             }
-
+            SearchResult[] final_ret=new SearchResult[added];
+            System.arraycopy(ret, 0, final_ret, 0, added); 
             System.out.println("performSearch done");
-            return ret;
+            return final_ret;
         }
 
 
