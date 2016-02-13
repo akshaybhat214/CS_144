@@ -1,6 +1,7 @@
-This example contains a simple utility class to simplify opening database
-connections in Java applications, such as the one you will write to build
-your Lucene index. 
+#Akshay Bhat and Aditya Padmakumar
+#2/13/2016
 
-To build and run the sample code, use the "run" ant target inside
-the directory with build.xml by typing "ant run".
+We created Lucene indices on Items.ItemId, Items.Name ,Items.Description and 
+Categories.Category. Creating inverted indices on text fields is how we
+minimized query times.
+We also created a spacial index (R-tree) on the Latitude and Longitude fields.
