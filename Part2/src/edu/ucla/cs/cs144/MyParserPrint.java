@@ -251,13 +251,7 @@ class MyParserPrint {
                 String locStr = getElementText(locElement);
                 locStr=locStr.replace("\"","\\\"");
                 String latStr = locElement.getAttribute("Latitude");
-                if(latStr.isEmpty()){
-                    latStr="\\N";
-                }
                 String longStr = locElement.getAttribute("Longitude");
-                if(longStr.isEmpty()){
-                    longStr="\\N";
-                }
                 System.out.println("Location: " + locStr);
                 System.out.println("Latitude: " + latStr);
                 System.out.println("Longitude: " + longStr);

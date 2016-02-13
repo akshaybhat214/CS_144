@@ -24,10 +24,8 @@ CREATE TABLE Items(
 	Ends TIMESTAMP,
 	Location Varchar(100),
 	Country Varchar(100),
-	#Latitiude DECIMAL(8,6) DEFAULT NULL, 
-	#Longitude DECIMAL(8,6) DEFAULT NULL,
-	Latitude Varchar(50) DEFAULT NULL, 
-	Longitude Varchar(50) DEFAULT NULL,
+	Latitiude DECIMAL(8,6),
+	Longitude DECIMAL(8,6),
 	Description Varchar(4000),
 	FOREIGN KEY (SellerId) REFERENCES Users (UserId)	
 );
