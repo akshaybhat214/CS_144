@@ -229,7 +229,7 @@ class MyParser {
                 String buyPriceStr= strip(getElementTextByTagNameNR(ElementArr[i], "Buy_Price"));
                 //System.out.println("Buy_Price: " + buyPriceStr);
                 if(buyPriceStr == ""){
-                    buyPriceStr=null;
+                    buyPriceStr="\\N";
                 }
                 String firstBidStr= strip(getElementTextByTagNameNR(ElementArr[i], "First_Bid"));
                 //System.out.println("First_Bid: " + firstBidStr);
@@ -247,7 +247,12 @@ class MyParser {
                 String locStr = getElementText(locElement);
                 locStr=locStr.replace("\"","\\\"");
                 String latStr = locElement.getAttribute("Latitude");
+                    if(latStr == "")
+                        latStr= "\\N";
                 String longStr = locElement.getAttribute("Longitude");
+                    if(longStr == ""){
+                        longStr= "\\N";
+                    }
                 /*System.out.println("Location: " + locStr); System.out.println("Latitude: " + latStr);
                 System.out.println("Longitude: " + longStr);*/
 
@@ -287,10 +292,10 @@ class MyParser {
                     /*System.out.println("Bidder ID: " + BidderID); System.out.println("Bidder Rating: " + bidderRatingStr);
                     System.out.println("Bidder Location: " + bidderLocationStr);System.out.println("Bidder Country: " + bidderCountryStr);*/
                     if(bidderCountryStr == ""){
-                        bidderCountryStr=null;
+                        bidderCountryStr="\\N";
                     }
                     if(bidderLocationStr == ""){
-                        bidderLocationStr=null;
+                        bidderLocationStr="\\N";
                     }
 
                     String timeStr = formatTime(getElementTextByTagNameNR(bidArr[c], "Time"));

@@ -11,7 +11,6 @@ CREATE TABLE UserLocation(
 	FOREIGN KEY (UserId) REFERENCES Users (UserId)		
 );
 
-
 CREATE TABLE Items(
 	ItemId INT PRIMARY KEY,
 	Name Varchar(100),
@@ -24,8 +23,8 @@ CREATE TABLE Items(
 	Ends TIMESTAMP,
 	Location Varchar(100),
 	Country Varchar(100),
-	Latitiude DECIMAL(8,6),
-	Longitude DECIMAL(8,6),
+	Latitude Varchar(30) DEFAULT NULL,
+	Longitude Varchar(30) DEFAULT NULL,
 	Description Varchar(4000),
 	FOREIGN KEY (SellerId) REFERENCES Users (UserId)	
 );
@@ -45,5 +44,3 @@ CREATE TABLE Categories(
 	CONSTRAINT CatKey PRIMARY KEY (ItemId, Category),
 	FOREIGN KEY (ItemId) REFERENCES Items (ItemId)
 );
-
-
