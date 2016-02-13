@@ -243,14 +243,20 @@ class MyParser {
                 String endStr= formatTime(getElementTextByTagNameNR(ElementArr[i], "Ends"));
                 //System.out.println("Ends: " + endStr);
 
+
                 Element locElement = getElementByTagNameNR(ElementArr[i], "Location");
                 String locStr = getElementText(locElement);
                 locStr=locStr.replace("\"","\\\"");
                 String latStr = locElement.getAttribute("Latitude");
+                if(latStr.isEmpty()){
+                    latStr="\\N";
+                }
                 String longStr = locElement.getAttribute("Longitude");
+                if(longStr.isEmpty()){
+                    longStr="\\N";
+                }
                 /*System.out.println("Location: " + locStr); System.out.println("Latitude: " + latStr);
                 System.out.println("Longitude: " + longStr);*/
-
                         
                 Element sellerElement = getElementByTagNameNR(ElementArr[i], "Seller");
                 String UserID = sellerElement.getAttribute("UserID");
@@ -259,7 +265,7 @@ class MyParser {
                 /*System.out.println("Seller UserID: " + UserID);
                 System.out.println("Seller Rating: " + ratingStr);*/
 
-                userWriter.println("\"" + UserID+"\"" + ","+ ratingStr); 
+                userWriter.println("\"" + UserID+"\"" + ","+ ratingStr);
                 //locationWriter.println("\"" + UserID+"\"" + ","+ "\"" + locStr +"\"" +"," + "\""+ countryStr+"\""); 
 
 
@@ -286,12 +292,10 @@ class MyParser {
                     bidderCountryStr=bidderCountryStr.replace("\"","\\\"");
                     /*System.out.println("Bidder ID: " + BidderID); System.out.println("Bidder Rating: " + bidderRatingStr);
                     System.out.println("Bidder Location: " + bidderLocationStr);System.out.println("Bidder Country: " + bidderCountryStr);*/
-                    if(bidderCountryStr == ""){
+                    if(bidderCountryStr == "")
                         bidderCountryStr=null;
-                    }
-                    if(bidderLocationStr == ""){
+                    if(bidderLocationStr == "")
                         bidderLocationStr=null;
-                    }
 
                     String timeStr = formatTime(getElementTextByTagNameNR(bidArr[c], "Time"));
                     String amountStr = strip(getElementTextByTagNameNR(bidArr[c], "Amount"));
@@ -326,10 +330,6 @@ class MyParser {
             e.printStackTrace();
         }
 
-
-        /* Fill in code here (you will probably need to write auxiliary
-            methods). */
-     
         /**************************************************************/
         
        // recursiveDescent(doc, 0);
