@@ -33,7 +33,6 @@ import edu.ucla.cs.cs144.DbManager;
 import edu.ucla.cs.cs144.SearchRegion;
 import edu.ucla.cs.cs144.SearchResult;
 import edu.ucla.cs.cs144.SearchEngine;
-//import edu.ucla.cs.cs144.XMLConverter;
 
 import edu.ucla.cs.cs144.XmlDataString;
 

@@ -29,8 +29,6 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
-// import lucene.demo.business.Hotel;
-// import lucene.demo.business.HotelDatabase;
 
 /**
  *
@@ -42,7 +40,7 @@ public class SearchEngine {
     
     /** Creates a new instance of SearchEngine */
     public SearchEngine() throws IOException {
-        searcher = new IndexSearcher(DirectoryReader.open(FSDirectory.open(new File("/var/lib/lucene/index-directory"))));
+        searcher = new IndexSearcher(DirectoryReader.open(FSDirectory.open(new File("/var/lib/lucene/index-directory50"))));
         parser = new QueryParser("content", new StandardAnalyzer());
     }
     
