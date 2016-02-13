@@ -18,11 +18,11 @@ public class AuctionSearchTest {
 		
 		String query = "superman";
 		SearchResult[] basicResults = as.basicSearch(query, 0, 20);
-		//System.out.println("Basic Seacrh Query: " + query);
-		//System.out.println("Received " + basicResults.length + " results");
-		// for(SearchResult result : basicResults) {
-		// 	System.out.println(result.getItemId() + ": " + result.getName());
-		// }
+		System.out.println("Basic Seacrh Query: " + query);
+		System.out.println("Received " + basicResults.length + " results");
+		for(SearchResult result : basicResults) {
+			System.out.println(result.getItemId() + ": " + result.getName());
+		}
 	/*
 		SearchRegion region =
 		    new SearchRegion(33.774, -118.63, 34.201, -117.38); 

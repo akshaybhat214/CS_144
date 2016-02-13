@@ -53,16 +53,21 @@ public class AuctionSearch implements IAuctionSearch {
 	
 	public SearchResult[] basicSearch(String query, int numResultsToSkip, 
 			int numResultsToReturn) {
-
+            SearchResult[] ret=new SearchResult[numResultsToReturn]; 
             try
             {
                 SearchEngine se = new SearchEngine();
-                TopDocs topDocs = se.performSearch("superman", 100);
-
+                int n=numResultsToReturn+numResultsToSkip;
+                TopDocs topDocs = se.performSearch(query, n);
+                int added=0;
                 System.out.println("Results found: " + topDocs.totalHits);
                 ScoreDoc[] hits = topDocs.scoreDocs;
                 for (int i = 0; i < hits.length; i++) {
                     Document doc = se.getDocument(hits[i].doc);
+                    if (i >= numResultsToSkip && added <numResultsToReturn){
+                        ret[added]=new SearchResult(doc.get("itemid"), doc.get("name"));
+                        added++;
+                    }
                     System.out.println(doc.get("itemid")+ " " + doc.get("name"));
                 }
             }catch(IOException | ParseException e){
@@ -70,7 +75,7 @@ public class AuctionSearch implements IAuctionSearch {
             }
 
             System.out.println("performSearch done");
-            return new SearchResult[2];
+            return ret;
         }
 
 
