@@ -34,6 +34,8 @@ import edu.ucla.cs.cs144.SearchRegion;
 import edu.ucla.cs.cs144.SearchResult;
 import edu.ucla.cs.cs144.SearchEngine;
 
+import edu.ucla.cs.cs144.XmlDataString;
+
 public class AuctionSearch implements IAuctionSearch {
 
 	/* 
@@ -88,7 +90,9 @@ public class AuctionSearch implements IAuctionSearch {
 
 	public String getXMLDataForItemId(String itemId) {
 		// TODO: Your code here!
-		return "";
+		XmlDataString getXMLData = new XmlDataString(itemId);
+
+        return getXMLData.getXML();
 	}
 	
 	public String echo(String message) {

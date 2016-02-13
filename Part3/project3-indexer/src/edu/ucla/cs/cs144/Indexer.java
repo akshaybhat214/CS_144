@@ -63,15 +63,15 @@ public class Indexer {
                     cur_name = rs.getString("Name");
                     cur_description =rs.getString("Description");
                     String categoryString = getCategoryList(conn, cur_itemId);
-                    String fullSearchableText = (cur_name + categoryString+ cur_description);
+                    String fullSearchableText = (cur_name +" "+ categoryString+" "+ cur_description);
                     //System.out.println(fullSearchableText);
 
                     /*Add fields to the document before writing*/
-                    doc.add(new Field("itemid", cur_itemId, Field.Store.YES, Field.Index.NO));
-                    doc.add(new Field("name", cur_name, Field.Store.YES, Field.Index.ANALYZED));
-                    doc.add(new Field("description", cur_description, Field.Store.NO, Field.Index.ANALYZED));
-                    doc.add(new Field("categories", categoryString, Field.Store.YES, Field.Index.ANALYZED));
-                    doc.add(new Field("content", fullSearchableText, Field.Store.NO, Field.Index.ANALYZED));
+                    doc.add(new StringField("itemid", cur_itemId, Field.Store.YES));
+                    doc.add(new StringField("name", cur_name, Field.Store.YES));
+                    doc.add(new StringField("description", cur_description, Field.Store.NO));
+                    doc.add(new StringField("categories", categoryString, Field.Store.NO));
+                    doc.add(new StringField("content", fullSearchableText, Field.Store.NO));
                     indexWriter.addDocument(doc);
                     
                     //System.out.println(itemId + " has a name: " + description);
