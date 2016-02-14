@@ -312,6 +312,7 @@ class MyParser {
 
                 String fullDescription= getElementTextByTagNameNR(ElementArr[i], "Description");
                 String description4000=fullDescription.substring(0, Math.min(fullDescription.length(), 4000)); 
+                description4000=description4000.replace("\\","\\\\");
                 description4000=description4000.replace("\"","\\\"");
                 //System.out.println("Description: " + description4000);
 

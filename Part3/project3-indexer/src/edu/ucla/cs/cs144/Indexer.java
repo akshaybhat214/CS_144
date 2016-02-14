@@ -32,7 +32,7 @@ public class Indexer {
     
     public IndexWriter getIndexWriter(boolean create) throws IOException {
         if (indexWriter == null) {
-            Directory indexDir = FSDirectory.open(new File("/var/lib/lucene/index-directory50"));
+            Directory indexDir = FSDirectory.open(new File("/var/lib/lucene/index-directory"));
             IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_10_2, new StandardAnalyzer());
             indexWriter = new IndexWriter(indexDir, config);
         }
@@ -50,7 +50,6 @@ public class Indexer {
         getIndexWriter(false); //changed
           // create a connection to the database to retrieve Items from MySQL
     try {
-      System.out.println("here");
         conn = DbManager.getConnection(true);
         Statement s = conn.createStatement() ;
         ResultSet rs = s.executeQuery("SELECT ItemId, Name, Description FROM Items");

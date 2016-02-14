@@ -80,7 +80,7 @@ public class AuctionSearch implements IAuctionSearch {
             }
             SearchResult[] final_ret = new SearchResult[added];
             System.arraycopy(ret, 0, final_ret, 0, added); 
-            System.out.println("performSearch done");
+            //System.out.println("performSearch done");
             return final_ret;
         }
 
@@ -113,14 +113,14 @@ public class AuctionSearch implements IAuctionSearch {
                     trimmed_coord = coord_substring.split(" ");
                     parsed_coord[0]= Double.parseDouble(trimmed_coord[0]);
                     parsed_coord[1]= Double.parseDouble(trimmed_coord[1]);
-                    System.out.println("Latitude: " + parsed_coord[0] + " Longitude: " + parsed_coord[1]);
+                    //System.out.println("Latitude: " + parsed_coord[0] + " Longitude: " + parsed_coord[1]);
                     if (parsed_coord[0]>= region.getLx() && parsed_coord[0]<=region.getRx() 
                         && parsed_coord[1]>= region.getLy() && parsed_coord[1]<=region.getRy())
                     {
                         if(count >= numResultsToSkip && count < numResultsToReturn )
                             spatialOutput.add(result);
 
-                        System.out.println(coord_string);
+                        //System.out.println(coord_string);
                         count++;
                     }
                 }
@@ -151,7 +151,6 @@ public class AuctionSearch implements IAuctionSearch {
     }
 
 	public String getXMLDataForItemId(String itemId) {
-		// TODO: Your code here!
 		XmlDataString getXMLData = new XmlDataString(itemId);
 
         return getXMLData.getXML();
