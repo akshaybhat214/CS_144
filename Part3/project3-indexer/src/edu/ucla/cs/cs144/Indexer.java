@@ -32,7 +32,7 @@ public class Indexer {
     
     public IndexWriter getIndexWriter(boolean create) throws IOException {
         if (indexWriter == null) {
-            Directory indexDir = FSDirectory.open(new File("/var/lib/lucene/index-directory"));
+            Directory indexDir = FSDirectory.open(new File("/var/lib/lucene/index-directory50"));
             IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_10_2, new StandardAnalyzer());
             indexWriter = new IndexWriter(indexDir, config);
         }
@@ -50,12 +50,14 @@ public class Indexer {
         getIndexWriter(false); //changed
           // create a connection to the database to retrieve Items from MySQL
     try {
+      System.out.println("here");
         conn = DbManager.getConnection(true);
         Statement s = conn.createStatement() ;
-        ResultSet rs = s.executeQuery("SELECT ItemId, Name, Description FROM Items");//WHERE ItemId <1050000000 AND ItemId > 1049555000
+        ResultSet rs = s.executeQuery("SELECT ItemId, Name, Description FROM Items");
         String cur_itemId, cur_name, cur_description;
             while( rs.next() )
             {
+              //System.out.println("here1");
                     Document doc = new Document();
 
                     /*Get string values of fields from SQL query results*/
@@ -63,7 +65,7 @@ public class Indexer {
                     cur_name = rs.getString("Name");
                     cur_description =rs.getString("Description");
                     String categoryString = getCategoryList(conn, cur_itemId);
-                    String fullSearchableText = (cur_name +" "+ categoryString+" " +cur_description);
+                    String fullSearchableText = (cur_name +" "+ categoryString+" "+ cur_description);
                     //System.out.println(fullSearchableText);
 
                     /*Add fields to the document before writing*/
@@ -136,6 +138,7 @@ public class Indexer {
             ResultSet rs = s2.executeQuery("SELECT Category FROM Categories WHERE ItemId ="+ itemId);
               while(rs.next())
               {
+
                   catList +=" ";
                   catList += rs.getString("Category");
               }
