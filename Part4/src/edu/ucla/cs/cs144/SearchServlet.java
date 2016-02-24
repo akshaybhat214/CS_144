@@ -22,6 +22,7 @@ public class SearchServlet extends HttpServlet implements Servlet {
         int num= result.length;
         request.setAttribute("numberof", num);
         request.setAttribute("searchResults", result);
+        request.setAttribute("skips", numResultsToSkip);
         request.setAttribute("q", searchQuery);
         request.getRequestDispatcher("/showSearch.jsp").forward(request, response);
 
