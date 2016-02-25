@@ -26,6 +26,7 @@
   function initialize() { 
     geocoder = new google.maps.Geocoder();
     var address = "<%=Location + " " + Country%>";
+    //var address = "PAYPAL OK";
    	var latlng = new google.maps.LatLng(34.063509,-118.44541); 
     var myOptions = { 
       zoom: 14, // default is 8  
@@ -38,7 +39,7 @@
     	if (status == google.maps.GeocoderStatus.OK) {
 			  map.setCenter(results[0].geometry.location);
 			  map.setZoom(13);
-			  var marker = new google.maps.Marker({position:results[0].geometry.location,title:"Item"});
+			  var marker = new google.maps.Marker({position:results[0].geometry.location,title:"Item <%= item_id %>"});
 			  marker.setMap(map);
 		}
     });
