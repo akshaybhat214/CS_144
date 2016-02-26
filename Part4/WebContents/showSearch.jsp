@@ -41,18 +41,20 @@
     <% SearchResult[] results = (SearchResult[])  request.getAttribute("searchResults"); %>
 		<header><b>These are the <%=results.length %> results on this page</b></header> <br>
 
-
 	   	<table id="results-table">
+
+		<% if(results.length > 0) {	%>
+
 	   		   	<tr>
 	    			<td> <b>Item Id </b> </td> 
 	    			<td><b>Item Name </b></td>
 	    		</tr>
 
+	    <% }	%>
+
 	    <%
 	    	int page_start =(Integer) request.getAttribute("skips"); 
-
 	    	String item_id; String item_name;
-
 
 		    	for(SearchResult currentResult: results)
 		    	{
