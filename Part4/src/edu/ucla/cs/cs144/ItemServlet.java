@@ -18,11 +18,11 @@ public class ItemServlet extends HttpServlet implements Servlet {
         
         //Item Parser to be implemented
         // Currently justs prints out the ItemId
-        //Item item = new Item(itemXML);
-        //request.setAttribute("xml", itemXML);
-        //request.setAttribute("xml", curr);
+        Item item = new Item(itemXML);
 
         request.setAttribute("id_att", itemId);
+        request.setAttribute("item", item);
+
         request.getRequestDispatcher("/showItem.jsp").forward(request, response);
     }
 }
