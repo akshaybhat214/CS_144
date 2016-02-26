@@ -63,7 +63,7 @@
 	    %>
 
 	    		<tr>
-	    			<td><a href= "/eBay/item?id=<%= item_id %>"> <%= item_id %> </td> 
+	    			<td><a href= "/eBay/item?itemid=<%= item_id %>"> <%= item_id %> </td> 
 	    			<td><%= item_name %></a></td>
 	    		</tr>
 
