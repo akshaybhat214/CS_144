@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head><title>Search Page</title></head>
+<head>
+        <script type="text/javascript" src="autosuggester.js"></script>
+        <script type="text/javascript" src="suggestionPuller.js"></script>
+        <link rel="stylesheet" type="text/css" src="autosuggest.css" />
+        <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("searchQuery"), new SuggestionExtractor());        
+            }
+        </script>
+</head>
+
+<h3>Search For Items by keyword</h3>
 <body>
-<h3>Search For Items</h3>
 <form action="/eBay/search" method="GET">
-    <input type="text" name="query">
+    <input type="text" name="query" id="searchQuery">
     <input type="submit" value="Search">
     <input type="hidden" name="skips" value="0">
 	<input type="hidden" name="toReturn" value="15">

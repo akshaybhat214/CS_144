@@ -6,11 +6,16 @@
 <!DOCTYPE html> 
 <html>
 <head>
+
     <title>P4 Item Results</title>
-</head>
+    <style type="text/css">
 
-<style type="text/css">
+    * {
+     font-size: 95%;
+     font-family: Arial;
+    }
 
+<<<<<<< HEAD
 * {
  font-size: 100%;
  font-family: Arial;
@@ -39,7 +44,7 @@ p {
 
 <% Item item = (Item)request.getAttribute("item");%>
     <% if(item.getItemId()== null){ %> 
-        There is no item with that ItemId. Please search above.
+        There is no item with that ItemId. Please search below.
         <% return;} %>
 <p>
     Name: <%= item.getName()%><br>

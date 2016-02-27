@@ -4,7 +4,6 @@
     <title>P4 Search Results</title>
 
     <style type="text/css">
-
     #results-table{
     	width: 60%;
     	border-collapse: collapse;
@@ -22,17 +21,19 @@
 	}
 
     tr:nth-child(even) {background-color: #f2f2f2}
-
     </style>
+
+    <script type="text/javascript" src="autosuggester.js"></script>
+    <script type="text/javascript" src="suggestionPuller.js"></script>
+    <link rel="stylesheet" type="text/css" src="autosuggest.css" />
+    <script type="text/javascript">
+        window.onload = function () {
+            var oTextbox = new AutoSuggestControl(document.getElementById("searchQuery2"), new SuggestionExtractor());        
+        }
+    </script>
+
 </head>
 <body>
-
-<form action=" http://localhost:1448/eBay/search" method="GET">
-    <input type="text" name="query">
-    <input type="submit" value="Search">
-    <input type="hidden" name="skips" value="0">
-	<input type="hidden" name="toReturn" value="15">
-</form>
 
 	<!--Number of results to skip: <%= request.getAttribute("skips") %> -->
 
@@ -88,6 +89,13 @@
 	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start+15 %>&toReturn=<%= 15 %>">Next Results
 	   	</a></div>
     <%	} 	 %>
+
+	<form action="/eBay/search" method="GET">
+	    <input type="text" name="query" id="searchQuery2">
+	    <input type="submit" value="Search">
+	    <input type="hidden" name="skips" value="0">
+		<input type="hidden" name="toReturn" value="15">
+	</form>
 
 </body>
 </html>
