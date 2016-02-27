@@ -15,9 +15,14 @@
     border-bottom: 1px solid #ddd;
 	}
 
-	* {
+/*	* {
 	 font-size: 100%;
 	 font-family: Arial;
+	}*/
+	#topright {
+    position: absolute;
+    right: 0;
+    top: 0;
 	}
 
     tr:nth-child(even) {background-color: #f2f2f2}
@@ -34,6 +39,11 @@
 
 </head>
 <body>
+<div id=topright>
+<a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
+<a href="/eBay/getItem.html" title="TopRightItem">Item Search</a></div>
+<p><b>CS 144 eBay<b><br/></p>
+<hr>
 
 	<!--Number of results to skip: <%= request.getAttribute("skips") %> -->
 

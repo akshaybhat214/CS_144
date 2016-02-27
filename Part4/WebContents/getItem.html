@@ -2,7 +2,19 @@
 <html>
 <head><title>Item Page</title></head>
 <body>
-<h3>Search For Items by keyword</h3>
+<style type="text/css">
+#topright {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+</style>
+<div id=topright>
+<a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
+<a href="/eBay/getItem.html" title="TopRightItem">Item Search</a></div>
+<p><b>CS 144 eBay<b><br/></p>
+<hr>
+<h3>Search For Items by ID</h3>
 	<form action="/eBay/item" method="GET">
 	    <input type="text" name="itemid">
 	    <input type="submit" value="Search">

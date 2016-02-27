@@ -10,17 +10,11 @@
     <title>P4 Item Results</title>
     <style type="text/css">
 
-    * {
-     font-size: 95%;
-     font-family: Arial;
-    }
-
-<<<<<<< HEAD
-* {
+/** {
  font-size: 100%;
  font-family: Arial;
 }
-
+*/
 #top_form{
     padding: 5px;
 }
@@ -28,10 +22,21 @@ p {
 
     padding: 15px;
 }
+
+#topright {
+    position: absolute;
+    right: 0;
+    top: 0;
+    }
 </style>
 
 
 <body onload="initialize()">
+<div id=topright>
+<a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
+<a href="/eBay/getItem.html" title="TopRightItem">Item Search</a></div>
+<p><b>CS 144 eBay<b><br/></p>
+<hr>
 
     <form action="/eBay/item" method="GET" id="top_form">
     <input type="text" name="itemid">
@@ -100,8 +105,8 @@ p {
   html { height: 100% } 
   body { height: 100%; margin: 0px; padding: 0px } 
   #map_canvas { 
-  height: 100%;
- } 
+    height: 100%;
+    }
 </style> 
 
 <script type="text/javascript" 
