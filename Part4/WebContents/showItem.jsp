@@ -12,29 +12,36 @@
 <style type="text/css">
 
 * {
- font-size: 95%;
+ font-size: 100%;
  font-family: Arial;
 }
 
 #top_form{
     padding: 5px;
 }
+p {
 
+    padding: 15px;
+}
 </style>
 
-<form action="http://localhost:1448/eBay/item" method="GET" id="top_form">
+
+<body onload="initialize()">
+
+    <form action="/eBay/item" method="GET" id="top_form">
     <input type="text" name="itemid">
     <input type="submit" value="Search">
-</form> 
+    </form> 
 
-<h2><b>This is the result for Item <%= request.getAttribute("id_att")%></b></h2>
-<body onload="initialize()">
+<div>
+
+<h2><b>&nbsp;&nbsp;This is the result for Item <%= request.getAttribute("id_att")%></b></h2>
 
 <% Item item = (Item)request.getAttribute("item");%>
     <% if(item.getItemId()== null){ %> 
         There is no item with that ItemId. Please search above.
         <% return;} %>
-
+<p>
     Name: <%= item.getName()%><br>
     <% String cats="";
     for(String cat: item.getCategories()){
@@ -76,8 +83,10 @@
     Seller: <br> <%= sellerStr%>
     Description: <%= item.getDescription()%><br>
     <br><br>
-
-<% String Location = (String) item.getLocation(); String Country =(String)item.getCountry(); 
+</p>
+</div>
+<%  String Location = (String) item.getLocation(); 
+    String Country =(String)item.getCountry(); 
 	String item_id = (String) item.getItemId(); %>
 
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 

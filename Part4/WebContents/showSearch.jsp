@@ -74,7 +74,7 @@
 	<%if (page_start>0) 
 		{	%>
 	   	<div>
-	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start-15 %>&toReturn=<%= 15 %>">Previous <%=retStr %> Results
+	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start-15 %>&toReturn=<%= 15 %>">Previous Results
 	   	</a></div>
     <%	} 	 
     	else{
@@ -82,10 +82,10 @@
     			<br>
     <%	}	%>
 
-	<%if (results.length >= 0) 
+	<%if (results.length == 15) 
 		{	%>
 	   	<div>
-	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start+15 %>&toReturn=<%= 15 %>">Next <%=retStr %> Results
+	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start+15 %>&toReturn=<%= 15 %>">Next Results
 	   	</a></div>
     <%	} 	 %>
 
