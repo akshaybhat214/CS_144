@@ -18,7 +18,8 @@
 #top_form{
     padding: 5px;
 }
-p {
+
+#info {
 
     padding: 15px;
 }
@@ -35,7 +36,7 @@ p {
 <div id=topright>
 <a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
 <a href="/eBay/getItem.html" title="TopRightItem">Item Search</a></div>
-<p><b>CS 144 eBay<b><br/></p>
+<p><b>CS 144 eBay</b><br/></p>
 <hr>
 
     <form action="/eBay/item" method="GET" id="top_form">
@@ -45,13 +46,13 @@ p {
 
 <div>
 
-<h2><b>&nbsp;&nbsp;This is the result for Item <%= request.getAttribute("id_att")%></b></h2>
+<h3><b>&nbsp;&nbsp;This is the result for Item <%= request.getAttribute("id_att")%></b></h3>
 
 <% Item item = (Item)request.getAttribute("item");%>
     <% if(item.getItemId()== null){ %> 
         There is no item with that ItemId. Please search below.
         <% return;} %>
-<p>
+<p id="info">
     Name: <%= item.getName()%><br>
     <% String cats="";
     for(String cat: item.getCategories()){
@@ -92,7 +93,7 @@ p {
     %>
     Seller: <br> <%= sellerStr%>
     Description: <%= item.getDescription()%><br>
-    <br><br>
+
 </p>
 </div>
 <%  String Location = (String) item.getLocation(); 
