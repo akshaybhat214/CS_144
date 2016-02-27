@@ -6,33 +6,34 @@
 <!DOCTYPE html> 
 <html>
 <head>
+
     <title>P4 Item Results</title>
+    <style type="text/css">
+
+    * {
+     font-size: 95%;
+     font-family: Arial;
+    }
+
+    #top_form{
+        padding: 5px;
+    }
+
+    </style>
+
 </head>
 
-<style type="text/css">
+    <form action="/eBay/item" method="GET" id="top_form">
+        <input type="text" name="itemid">
+        <input type="submit" value="Search">
+    </form> 
 
-* {
- font-size: 95%;
- font-family: Arial;
-}
-
-#top_form{
-    padding: 5px;
-}
-
-</style>
-
-<form action="http://localhost:1448/eBay/item" method="GET" id="top_form">
-    <input type="text" name="itemid">
-    <input type="submit" value="Search">
-</form> 
-
-<h2><b>This is the result for Item <%= request.getAttribute("id_att")%></b></h2>
+    <h2><b>This is the result for Item <%= request.getAttribute("id_att")%></b></h2>
 <body onload="initialize()">
 
 <% Item item = (Item)request.getAttribute("item");%>
     <% if(item.getItemId()== null){ %> 
-        There is no item with that ItemId. Please search above.
+        There is no item with that ItemId. Please search below.
         <% return;} %>
 
     Name: <%= item.getName()%><br>
