@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.regex.Pattern;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -24,7 +26,10 @@ public class ProxyServlet extends HttpServlet implements Servlet {
         try
         {
         	response.setContentType("text/xml");
-        	String curr_query = request.getParameter("query");
+        	//String curr_query = request.getParameter("query");
+        	String curr_query = request.getQueryString();
+        	//URLEncoder.encode(curr_query, "UTF-8");
+        	curr_query = curr_query.replaceFirst(Pattern.quote("query="),"");
         	if(curr_query==null)
         		return;
 
