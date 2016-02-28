@@ -42,7 +42,7 @@
 <div id=topright>
 <a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
 <a href="/eBay/getItem.html" title="TopRightItem">Item Search</a></div>
-<p><b>CS 144 eBay<b><br/></p>
+<p><b>CS 144 eBay</b><br/></p>
 <hr>
 
 	<!--Number of results to skip: <%= request.getAttribute("skips") %> -->
@@ -85,7 +85,7 @@
 	<%if (page_start>0) 
 		{	%>
 	   	<div>
-	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start-15 %>&toReturn=<%= 15 %>">Previous Results
+	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start-15 %>&toReturn=<%= 15 %>">Previous
 	   	</a></div>
     <%	} 	 
     	else{
@@ -96,7 +96,7 @@
 	<%if (results.length == 15) 
 		{	%>
 	   	<div>
-	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start+15 %>&toReturn=<%= 15 %>">Next Results
+	   	<a href= "/eBay/search?query=<%= query %>&skips=<%= page_start+15 %>&toReturn=<%= 15 %>">Next
 	   	</a></div>
     <%	} 	 %>
 
