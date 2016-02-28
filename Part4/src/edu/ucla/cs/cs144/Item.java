@@ -227,7 +227,8 @@ public class Item {
                 //this.bids.add(b);
                 unsortedBids.put(bidTime,b);
             }
-            this.sortedBids= new TreeMap<String, Bid>(unsortedBids);
+            this.sortedBids= new TreeMap<String, Bid>(Collections.reverseOrder());
+            this.sortedBids.putAll(unsortedBids);
 
 
             // System.out.println(itemId);  
