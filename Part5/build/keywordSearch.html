@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyword Search Page</title>
+        <script type="text/javascript" src="autosuggester.js"></script>
+        <script type="text/javascript" src="suggestionPuller.js"></script>
+        <link rel="stylesheet" type="text/css" src="autosuggest.css" />
+        <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("searchQuery"), new SuggestionExtractor());        
+            }
+        </script>
+</head>
+<body>
+<style type="text/css">
+#topright {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+</style>
+<div id=topright>
+<a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
+<a href="/eBay/getItem.html" title="TopRightItem">Item Search</a></div>
+<p><b>CS 144 eBay</b><br/></p>
+<hr>
+<h3>Search For Items by keyword</h3>
+<form action="/eBay/search" method="GET">
+    <input type="text" name="query" id="searchQuery">
+    <input type="submit" value="Search">
+    <input type="hidden" name="skips" value="0">
+	<input type="hidden" name="toReturn" value="15">
+</form>
+</body>
+</html>
