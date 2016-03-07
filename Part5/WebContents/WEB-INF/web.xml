@@ -31,6 +31,14 @@
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/session</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CreditCardServlet</servlet-name>
+        <servlet-class>edu.ucla.cs.cs144.CreditCardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreditCardServlet</servlet-name>
+        <url-pattern>/creditcard</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

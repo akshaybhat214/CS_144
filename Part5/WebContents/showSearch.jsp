@@ -1,7 +1,7 @@
 <%@ page import="edu.ucla.cs.cs144.SearchResult" %>
 <html>
 <head>
-    <title>P4 Search Results</title>
+    <title>P4 Search Results!!!</title>
 
     <style type="text/css">
     #results-table{

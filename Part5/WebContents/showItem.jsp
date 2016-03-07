@@ -31,7 +31,7 @@
     }
 </style>
 
-
+</head>
 <body onload="initialize()">
 <div id=topright>
 <a href="/eBay/keywordSearch.html" title="TopRightKey">Keyword Search</a><br>
@@ -61,7 +61,11 @@
 	}%>
 	Categories: <%= cats %><br>
     Currently: <%= item.getCurrently()%><br>
-    Buy Price: <%= item.getBuyPrice()%><br>
+    Buy Price: <%= item.getBuyPrice()%>
+    <% if(!item.getBuyPrice().isEmpty()){ %>
+    <a href="/eBay/creditcard?itemid=<%=item.getItemId() %>">Pay Now</a>
+    <% } %>
+    <br>
     First Bid: <%= item.getFirstBid()%><br>
     No. Of Bids: <%= item.getNoOfBids()%><br>
     <% int cnt=1;
@@ -94,11 +98,6 @@
     Seller: <br> <%= sellerStr%>
     Description: <%= item.getDescription()%><br>
 
-    <% if(item.getBuyPrice()!= null){ %> 
-        <form action="http://google.com">
-            <input type="submit" value="Pay Now">
-        </form>
-    <% } %>
 
 </p>
 </div>
