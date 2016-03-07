@@ -32,6 +32,7 @@
 <p><b>CS 144 eBay</b><br/></p>
 <hr>
 <% PaymentInfo itemInfo = (PaymentInfo)request.getAttribute("PaymentInfo");%>
+<h3>Credit Card Input</h3>
 Item ID: <%= itemInfo.getItemId()%><br>
 Name: <%= itemInfo.getName()%><br>
 Buy Price: <%= itemInfo.getBuyPrice()%><br>
