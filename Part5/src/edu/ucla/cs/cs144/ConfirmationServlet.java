@@ -16,17 +16,17 @@ public class ConfirmationServlet extends HttpServlet implements Servlet {
        
     public ConfirmationServlet() {}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession(true);
         if (session.isNew()) {
             request.setAttribute("invalid_session", "true");
             //session.invalidate();
         }
-        /*else if(!request.isSecure())
+        else if(!request.isSecure())
         {
             request.setAttribute("invalid_session", "true");
-        }*/
+        }
         else
         {
             String creditCard = (String) request.getParameter("creditCard");
@@ -49,5 +49,9 @@ public class ConfirmationServlet extends HttpServlet implements Servlet {
         } 
 
         request.getRequestDispatcher("/showConfirmation.jsp").forward(request, response);
+    }
+
+        protected void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
+        doGet(request, response);
     }
 }

@@ -37,7 +37,8 @@ Item ID: <%= itemInfo.getItemId()%><br>
 Name: <%= itemInfo.getName()%><br>
 Buy Price: <%= itemInfo.getBuyPrice()%><br>
 <% String formAction= "https://" + request.getServerName() + ":8443" + request.getContextPath() + "/confirmation"; %>
-<% String formAction2= "/eBay/confirmation"; %>
+<!-- String formAction= "/eBay/confirmation"; -->
+
 Credit Card:
 <form name="creditCardForm" action="<%= formAction %>" method="POST">
 	<input type="text" name="creditCard" placeholder="Credit Card Number">
