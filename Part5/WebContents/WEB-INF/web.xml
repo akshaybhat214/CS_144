@@ -24,12 +24,12 @@
         <url-pattern>/suggest</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>SessionServlet</servlet-name>
-        <servlet-class>edu.ucla.cs.cs144.SessionServlet</servlet-class>
+        <servlet-name>ConfirmationServlet</servlet-name>
+        <servlet-class>edu.ucla.cs.cs144.ConfirmationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SessionServlet</servlet-name>
-        <url-pattern>/session</url-pattern>
+        <servlet-name>ConfirmationServlet</servlet-name>
+        <url-pattern>/confirmation</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>CreditCardServlet</servlet-name>

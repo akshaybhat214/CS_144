@@ -30,6 +30,7 @@ public class CreditCardServlet extends HttpServlet implements Servlet {
         }
         PaymentInfo payInfo = buyPriceItems.get(itemId);
         request.setAttribute("PaymentInfo", payInfo);
+        //request.setAttribute("itemid", itemId);
         //request.setAttribute("tester", buyPriceItems);
         request.getRequestDispatcher("/showCreditCardInput.jsp").forward(request, response);
     }

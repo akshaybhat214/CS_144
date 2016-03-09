@@ -62,7 +62,7 @@
 	Categories: <%= cats %><br>
     Currently: <%= item.getCurrently()%><br>
     Buy Price: <%= item.getBuyPrice()%>
-    <% String formAction= "https://" + request.getServerName() + ":8443" + request.getContextPath() + "/creditcard?itemid=" + item.getItemId(); %>
+    <% String formAction= "/eBay/creditcard?itemid="+ item.getItemId(); %>
     <% if(!item.getBuyPrice().isEmpty()){ %>
     <a href=<%=formAction%>>Pay Now</a>
     <% } %>
