@@ -37,8 +37,8 @@
 
 </head>
 <body>
-    <% String formAction1= "http://" + request.getServerName() +":"+ session.getAttribute("port_no")  + request.getContextPath() + "/keywordSearch.html"; %>
-    <% String formAction2= "http://" + request.getServerName() +":"+ session.getAttribute("port_no")  + request.getContextPath() + "/getItem.html"; %>
+    <% String formAction1= "http://" + request.getServerName() +":"+ 1448  + request.getContextPath() + "/keywordSearch.html"; %>
+    <% String formAction2= "http://" + request.getServerName() +":"+ 1448  + request.getContextPath() + "/getItem.html"; %>
     <div id=topright>
     <a href= "<%= formAction1 %>" title="TopRightKey">Keyword Search</a><br>
     <a href= "<%= formAction2 %>" title="TopRightItem">Item Search</a></div>

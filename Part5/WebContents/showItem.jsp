@@ -50,7 +50,7 @@
 
 <% Item item = (Item)request.getAttribute("item");%>
     <% if(item.getItemId()== null){ %> 
-        There is no item with that ItemId. Please search below.
+        There is no item with that ItemId. Please search again.
         <% return;} %>
 <p id="info">
     Name: <%= item.getName()%><br>

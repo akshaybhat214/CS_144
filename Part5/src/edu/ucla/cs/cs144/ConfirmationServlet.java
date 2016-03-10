@@ -36,10 +36,12 @@ public class ConfirmationServlet extends HttpServlet implements Servlet {
 
             String itemId = (String) request.getParameter("itemId");
             request.setAttribute("itemid", itemId);
+            
             Map<String, PaymentInfo> buyPriceItems = (HashMap<String, PaymentInfo>) session.getAttribute("buyPriceItems");
-            if (buyPriceItems == null || !buyPriceItems.containsKey(itemId)) {
+            if (buyPriceItems == null || !buyPriceItems.containsKey(itemId)) 
+            {
                 response.sendRedirect("/eBay/");
-            return;
+                return;
             }
             PaymentInfo payInfo = buyPriceItems.get(itemId);
             request.setAttribute("PaymentInfo", payInfo);
@@ -53,6 +55,6 @@ public class ConfirmationServlet extends HttpServlet implements Servlet {
     }
 
         protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
-            doPost(request, response);
+            response.sendRedirect("http://localhost:1448/eBay/");
     }
 }
